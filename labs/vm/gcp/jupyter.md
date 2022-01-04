@@ -19,7 +19,7 @@ installing tools and other tasks.
 
 3. Now let's use pip3 to install Jupyter (don't use sudo for this one):
 
-`pip3 install jupyter`
+`pip3 install jupyter==1.0.0`
 
 4. When you start Jupyter notebook remotely, you'll want to set a
 password for connecting to it.  Make it a good one, or anybody will be
@@ -29,9 +29,12 @@ are still registering; the terminal just isn't displaying them!)
 Run the following:
 
 ```
-mkdir -p ~/.jupyter
 python3 -m notebook password
 ```
+
+**Important!** Choose a strong password.  Anybody on the Internet can
+  guess your password an unlimited number of times.  Most semesters at
+  least one student loses their VM to malicious actors.
 
 5. Now let's start Jupyter.  Run the following:
 
