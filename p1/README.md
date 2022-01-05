@@ -1,6 +1,4 @@
-# DON'T START YET (UNDER REVISION)
-
-# Project 1: Review and Git Analysis
+# Project 1: Review, Git Analysis, Benchmarking
 
 ## Corrections/Clarifications
 
@@ -14,7 +12,7 @@ The first 75% can be done as a group and focuses on review.  The last
 25% is individual and focuses on new 320 concepts: `check_output`,
 `time`, and `git`.
 
-[VIDEO](https://mediaspace.wisc.edu/media/CS%20320%20Project%201%3A%20Tips%20for%20Getting%20Started/1_gw0nxldd) showing how to get started (assumes you have completed lab 1).
+[VIDEO](https://mediaspace.wisc.edu/media/CS%20320%20Project%201%3A%20Tips%20for%20Getting%20Started/1_gw0nxldd) showing how to get started (assumes you have completed lab 1).  This was recorded in Fall 2021, but still applies to the project this semester.
 
 ## Setup
 
@@ -33,13 +31,13 @@ External IP address
 (https://console.cloud.google.com/compute/instances) in Google's
 console.
 
-2. run `pip3 install matplotlib pandas`
+2. run `pip3 install pandas==1.3.5 matplotlib==3.5.1`
 
-3. run `git clone https://github.com/cs320-wisc/f21.git`
+3. run `git clone https://github.com/cs320-wisc/s22.git`
 
 4. go to `http://YOUR_IP_ADDRESS:2020/tree` in the browser (sign in, if prompted)
 
-5. enter the `f21` > `p1` directory
+5. enter the `s22` > `p1` directory
 
 6. Click the "New" button and select "Python 3", then start the project
 
@@ -51,7 +49,7 @@ console.
 
 2. "File" > "Save and Checkpoint"
 
-3. from an SSH session, navigate to the f21/p1 directory
+3. from an SSH session, navigate to the s22/p1 directory
 
 4. run `python3 tester.py p1.ipynb` and work on fixing any issues
 
@@ -75,7 +73,7 @@ Submit as follows:
 
 1. "File" > "Download as" > "Notebook (.ipynb)"
 
-2. go to https://tyler.caraza-harter.com/cs320/f21/submission.html
+2. go to https://tyler.caraza-harter.com/cs320/s22/submission.html
 
 3. select P1
 
@@ -102,9 +100,6 @@ Some functions we use a lot in 220/320 are abs, dir, float, input, int, len, lis
 7 and 2 are ints, so the result of dividing these is an int (3, after rounding down 3.5) in most programming languages.  Python produces the mathematically correct answer, even though it is not an int (like 7 and 2).
 
 In other cases where you want to divide 7 by 2 and get an int, you would use `7 // 2`.
-
-For your answer cell, be sure to start it with `#q1` (and similar for
-following) -- this helps the tester, which you should run often.
 
 ### Q2: what is `error`?
 
@@ -279,14 +274,14 @@ Docs:
 * https://docs.python.org/3/howto/sorting.html#sorting-basics
 * https://docs.python.org/3/howto/sorting.html#key-functions
 
-Hint: if we had to sort by the "A" column ascending, we could do the following:
+Hint: if we had to sort by the "A" column **descending**, we could do the following:
 
 ```python
 def get_column_a(row):
     print("lookup A column for a row")
     return row[header.index("A")]
 
-rows.sort(key=get_column_a, reverse=False)
+rows.sort(key=get_column_a, reverse=True)
 rows
 ```
 
@@ -295,7 +290,7 @@ Note that we aren't calling `get_column_a` ourselves (because there are no paren
 When we only need a function for one purpose, we can use the `lambda` syntax instead of the `def` syntax to define the function on a single line, without even giving it a name.  The following works the same as the earlier example (but without the print):
 
 ```python
-rows.sort(key=lambda row: row[header.index("A")], reverse=False)
+rows.sort(key=lambda row: row[header.index("A")], reverse=True)
 rows
 ```
 
@@ -353,7 +348,7 @@ We have downloaded the data for each year to a file in the `home-computers` dire
 Create a dictionary called `years` like this:
 
 * **key**: a year (int), corresponding to a year of data in the directory.  Don't hardcode the years -- use `os.listdir` and extract the year from each filename (right before the first `.`).
-* **value**: a pandas DataFrame corresponding to the CSV for that year.  Skip the first row from each CSV file: https://pandas.pydata.org/pandas-docs/dev/reference/api/pandas.read_csv.html
+* **value**: a pandas DataFrame corresponding to the CSV for that year.  Skip the first row from each CSV file: https://pandas.pydata.org/pandas-docs/dev/reference/api/pandas.read_csv.html.  Use `set_index` (https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.set_index.html) to make "Geographic Area Name" the index of the DataFrame.  This will let you easily look up state stats by name (instead of by row number) later.
 
 ### Q17: what are the keys in `years`?
 
@@ -404,7 +399,7 @@ Answer with a plot like this:
 
 <img src="img/q23.png">
 
-### Q24: what is the relationship between household with smartphones and those with tablets? (2018)
+### Q24: what is the relationship between household with smartphones and those with tablets?  (2018)
 
 Answer with a plot like this:
 
@@ -419,88 +414,159 @@ Columns:
 You have to do the remainder of this project on your own.  Do not
 discuss with anybody except 320 staff (mentors, TAs, instructor).
 
-For this part, we'll analyze the history of this project: https://github.com/tylerharter/cs320-p1/commits/main.  The repo contains a `wc.py` program that counts the number of times each word appears in a file.  We'll also measure how fast different versions of `wc.py` are.
+For this part, you'll do two things:
+1. analyze the history of this project: https://github.com/pallets/flask.  We'll eventually learn how to use the flask module to build web applications -- for now we'll just analyze changes to the codebase over time.
+2. measure how long various Pandas operations take
 
-Checkout the repo in the same directory where you have your notebook:
+We have a copy of the flask repo in `flask.zip`.  Run `unzip flask.zip`.  If `apt` is not installed, follow the suggestion in the error message to install it.  If that doesn't work because you don't have admin permissions, re-run the suggested command with `sudo` in front of the suggestion (that runs the command as the super/root/admin user).
+
+### Q25: what is the first line of output from `git log` when run in the `flask` repo directory?
+
+If you pass `cwd="????"` to `check_output`, you can run the `git log` command inside the `flask` directory that was created when you ran the `git clone` command.  "CWD" stands for "change working directory".
+
+`check_output` function in the `subprocess` module (https://docs.python.org/3.8/library/subprocess.html#subprocess.check_output) returns a byte sequence; consider converting it to a string ("utf-8" encoding) and splitting it by newline (`\n`) to get a list. This will be useful for answering following questions.
+
+### Q26: What are the commit numbers of the 50 earliest commits?
+
+Answer with a list.  Earlier commits should be later in the list.
+
+### Q27: what did the `README` file contain after the 3rd commit?
+
+Use `check_output` to run a `git checkout` command to switch to that commit, before reading `flask/README` the way you would read any regular text file in Python (using `open` and `.read`).
+
+### Q28: how many pull requests were merged from each GitHub user?
+
+When running `git log`, you'll see some entries like this:
 
 ```
-git clone https://github.com/tylerharter/cs320-p1.git
+commit 7b0c82dfdc867641dd6e1b200f735bffd66e4c12
+Merge: c5ca1750 a841cfab
+Author: David Lord <davidism@gmail.com>
+Date:   Wed Dec 22 17:10:24 2021 -0800
+
+    Merge pull request #4350 from olliemath/patch-1
+    
+    Only use a custom JSONDecoder if needed
 ```
 
-### Q25: what is the first line of output from `git log`?
+This means the code was approved by David Lord (who has permission to make changes), but the code change was written and proposed by olliemath.
 
-If you pass argument `cwd="????"` to `check_output`, you can run the `git log` command inside the `cs320-p1` directory that was created when you ran the `git clone` command.
+Whenever a line from `git log` contains the text "Merge pull request" and "/", extract the username immediately before the "/".  Count occurences of usernames in dictionary like the following:
 
-`check_output` function in the `subprocess` module (https://docs.python.org/2/library/subprocess.html#subprocess.check_output) returns a byte sequence; consider converting it to a string ("utf-8" encoding) and splitting it by newline (`\n`) to get a list.  This will be useful for answering following questions.
+```
+{'Yourun-proger': 2,
+ 'olliemath': 1,
+ 'pallets': 204,
+ 'jugmac00': 1,
+ 'pgjones': 14,
+ 'eprigorodov': 1,
+ ...
+}
+```
 
-### Q26: What are all the commit numbers?
+### Q29: what is the output of `pip3 instal`?  (yes, the mispelling was intentional)
 
-Answer with a list.
-
-### Q27: how has the length of `wc.py` changed over time?
-
-Answer with a dict:
-* key: a commit number
-* val: lines in wc.py
-
-Checkout each commit number in turn.  Then read the wc.py file and count how many lines it has.  You can read a .py the same you would a .txt or any other text file.
-
-Here's a general snippet that reads a file to a list of strings:
+This one will be difficult because the command will fail, triggering an exception.  First, run this by itself to determine what exception is thrown in this circumstance:
 
 ```python
-f = open("some_file_name")
-lines = list(f)
-f.close()
+check_output(["pip3", "instal"])
 ```
 
-Consider running a `git checkout main` so that the repo returns to the most recent commit after you're done.
+Search the page here to learn about the exception type, and import it: https://docs.python.org/3/library/subprocess.html
 
-### Q28: what does `python3 cs320-p1/wc.py input.txt ALL` return when input.txt contains "A B C C"?
-
-Run the latest version of `wc.py`.
-
-Your code should produce the input.txt file with the specified contents.  Here's a general way to write text to a file (note the "w" in the `open` call -- you need that to make the file "writeable"):
+Then, use that information to catch exceptions of that type (fill in the missing exception type):
 
 ```python
-f = open(????, "w")
-f.write(????)
-f.close()
+try:
+    check_output(["pip3", "instal"])
+except ???? as e:
+    output = e.output
+output
 ```
 
-The `wc.py` prints a JSON string.  JSON can encode things like dicts and lists.  You should convert the JSON string to a Python data structure.  Here's an example of how to convert the JSON string "[1, 2, 3]" to an actual Python list:
+Oops, `output` is empty because programs often print errors to a different place than regular output.  Read the documentation for the exception to find what should be used instead of `e.output`.
+
+One last detail -- even though you use the correct code to get the error output, it will be `None` at first.  You need to update the `check_output` call to be like this to capture error output:
 
 ```python
-import json
-data = json.loads("[1, 2, 3]")
+check_output(["pip3", "instal"], stderr=PIPE)
 ```
 
-### Q29: for which versions (commits) of the program does the previous command fail?
+### Q30: what is faster for looping over a DataFrame, `iterrows` or `itertuples`?
 
-Answer with a list of commits.
-
-Hint: first write some code to try running on each version.  For at least one of them, you'll get an exception indicating the program crashed.  Use a `try`/`except` to catch this exception and add the current commit to a list.
-
-### Q30: for commit `4e4128313b8d5b5e5d04f2e8e585f64f7c5831a4`, what is the relationship between input size and time to run `wc.py`?
-
-Create a plot where the y-axis is time it takes to run (in milliseconds) and the x-axis is the number of "words" in the file.  If there are 5 "words" in the file, you can generate something like this (for simplicity, we're counting numbers as words):
+We'll want to generate test data of various sizes.  Use this function for that purpose:
 
 ```python
-0
-1
-2
-3
-4
+def rand_df(rows):
+    return pd.DataFrame(np.random.randint(10, size=(rows, 4)),
+                        columns=["A", "B", "C", "D"],
+                        index=[f"r{i}" for i in range(1, rows+1)])
 ```
 
-Choose a few different sizes to measure, up to 1000 (it will take too long if you do every size from 1 to 1000).
+Answer with a plot as follows:
+* x-axis is number of number of rows in a DataFrame
+* y-axis is milliseconds is how long it takes to loop over the DataFrame
+* two lines: one for `iterrows` and one for `itertuples`
 
-Example:
+If you have a DataFrame generated from `rand_df` called `df`, you can take a measurement like this:
 
-<img src="img/q30.png">
+```python
+t0 = time()
+for row in df.iterrows():
+    pass
+t1 = time()
+```
 
-Note: your numbers won't be exactly the same.  If you re-run your code multiple times, you'll probably see slightly different results each time.
+Your plot should look something like this (we're hiding the legend labels so it's a surprise for you which is faster).
 
-### Q31: for commit `f37e610ce055a3d894baac2d9449e6eb77c72320`, what is the relationship between input size and time to run `wc.py`?
+<img src="q30.png">
 
-### Q32: for commit `6f5ca9327e986315ffcacddce5d9d6195c0913b7`, what is the relationship between input size and time to run `wc.py`?
+Some noise is OK as long as you get the same general shape (we get a slightly different plot each time we measure ourselves).
+
+The easiest way to create a plot with two lines is to create a DataFrame with a column of measurements corresponding to each line.  Here's a simple example to adapt:
+
+```python
+times_df = pd.DataFrame(dtype=float)
+times_df.at[1, "A"] = 50
+times_df.at[2, "A"] = 60
+times_df.at[1, "B"] = 35
+times_df.at[2, "B"] = 34
+times_df.plot.line()
+```
+
+### Q31: what is faster, `loc`, or `at`?
+
+Answer with a line plot, similar to the one for the previous questions.  Here is a code snippet to use for the measurement (adapt to measure `.at` as well):
+
+```python
+total = 0
+for idx in df.index:
+    for col in df.columns:
+        total += df.loc[idx, col]
+```
+
+### Q32: what is faster, a loop or `.apply`?
+
+Answer this one with a line plot similar as to the last two.  You should, however, have measurements going up to 20000 rows.
+
+For the two code snippets to measure:
+
+```python
+result = df["A"].apply(laugh).tolist()
+```
+
+AND
+
+```python
+result = []
+for val in df["A"]:
+    result.append(laugh(val))
+```
+
+The `laugh` function is defined as follows:
+
+```python
+def laugh(x):
+    return "ha" * x
+```
 
