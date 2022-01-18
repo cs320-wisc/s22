@@ -6,6 +6,6 @@ Activities:
 
 2. review Python [files and JSON](./files-json)
 
-3. learn how to read [zip files](./files-json) in Python
+3. learn how to read [zip files](./files-zip) in Python
 
 4. start the [loan.py](./loans) module that will help you complete P2

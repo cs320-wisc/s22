@@ -49,6 +49,10 @@ Note this doesn't work all the time (if there's a bug in your
 loans.py, you may need to do a Restart & Run All in the notebook after
 fixing your module).
 
+Feel free to delete the print statement and `hey` method from
+`loans.py` (those were just for experimentation -- we'll be adding
+other content to `loans.py`).
+
 ## 1. `Applicant` class
 
 We'll want to create a class to represent people who apply for loans.  Start with this in `loans.py`:
