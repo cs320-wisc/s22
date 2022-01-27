@@ -2,7 +2,7 @@
 
 ## Account and Billing
 
-1. Go to https://cloud.google.com.  Click "Get started for free".
+1. Go to https://cloud.google.com.  Click "Get started for free". (If prompted to type in any Credit Card information just press skip.) 
 
 2. Use your "@wisc.edu" email address.
 
