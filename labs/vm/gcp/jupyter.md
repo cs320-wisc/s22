@@ -7,7 +7,9 @@
 Please run the commands one at a time so if an error occurs, you are able to catch it. 
 
 `sudo apt update`
+
 `sudo apt upgrade`
+
 `sudo apt install python3-pip`
 
 The `apt` program lets you install software on an Ubuntu system; think
