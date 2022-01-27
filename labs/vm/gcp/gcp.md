@@ -31,7 +31,7 @@ Any **resources** we create (like virtual machines), are grouped into
 
 2. click "CREATE PROJECT"
 
-3. call it "cs320-f21" and associate it with your account that has the free credits.  Sometimes an option will appear to select an organization in which to nest your project.  If this happens, select "wisc.edu".
+3. call it "cs320-s22" and associate it with your account that has the free credits.  Sometimes an option will appear to select an organization in which to nest your project.  If this happens, select "wisc.edu".
 
 <img src="img/2.png" width=600>
 

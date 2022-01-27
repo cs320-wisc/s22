@@ -21,7 +21,7 @@ outsiders, to provide security.  We will unblock all ports for our
 virtual machine.  This is not the most secure option, but it is
 convenient, and fine for the purposes of this course.
 
-1. Go to the Google Cloud Console at https://console.cloud.google.com/.  Then sign into your account.  Be sure your @wisc.edu user is selected (top right of blue bar) and that the "cs320-f21" project is also selected (to the left of the search box in the blue bar)!
+1. Go to the Google Cloud Console at https://console.cloud.google.com/.  Then sign into your account.  Be sure your @wisc.edu user is selected (top right of blue bar) and that the "cs320-s22" project is also selected (to the left of the search box in the blue bar)!
 
 <img src="img/7.png" width=600>
 
