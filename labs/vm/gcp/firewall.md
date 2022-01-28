@@ -40,7 +40,7 @@ the "VPC network" menu and select "Firewall"
 
 <img src="img/10.png" width=450>
 
-6. Under Targets, chose "All instances in the network".  Set "Source filter" to "IP ranges" and "Source IP ranges" to "0.0.0.0/0".  Choose "Allow all" under "Protocols and ports".  Click "Create".
+6. Under Targets, chose "All instances in the network".  Set "Source filter" to "IPv4 ranges" and "Source IP ranges" to "0.0.0.0/0".  Choose "Allow all" under "Protocols and ports".  Click "Create".
 
 <img src="img/11.png" width=450>
 
