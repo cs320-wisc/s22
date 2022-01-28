@@ -6,7 +6,7 @@ def main():
         count = 3
     elif len(sys.argv) == 3:
         filename = sys.argv[1]
-        count = sys.argv[2]
+        count = int(sys.argv[2])
     else:
         print("Usage: python3 countdown.py <filename> [count]")
         return
