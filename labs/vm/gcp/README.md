@@ -2,7 +2,7 @@
 
 ## Step 1: Create Account and Redeem Credits
 
-See details about how to get the $50 credit: https://canvas.wisc.edu/courses/272598/discussion_topics/1079256.
+See details about how to get the $50 credit: https://canvas.wisc.edu/courses/293982/discussion_topics/1207412.
 
 Then follow [these instructions](gcp.md) to create an account and redeem the credit.
 

@@ -10,4 +10,6 @@
 
 3. setup your [virtual machine](./vm)
 
+4. remember to fill the attendence form: https://tyler.caraza-harter.com/cs320/s22/surveys.html
+
 \* 320 ice breakers borrowed from [here](https://www.signupgenius.com/college/icebreaker-questions-college-students.cfm).
