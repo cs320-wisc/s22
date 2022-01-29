@@ -9,13 +9,19 @@ where we need to paste a key, which we haven't generated yet.
 
 <img src="img/14.png" width=600>
 
-3. Open your terminal(MacOS) or PowerShell(Windows), and run the command `ssh-keygen`.  You should
-be able to just use the defaults by hitting enter a few times (I don't
-recommend setting a password for this or a passphrase). It looks like the following on
-a Mac, but should work the same on Windows.  If `ssh-keygen` isn't
-found, then you should skip the rest of this section and go back to
-the next steps on the [main page](README.md) for now (feel free to get
-help more specific to your setup during office hours).
+3. Open your terminal(MacOS) or PowerShell(Windows), and run the
+command `ssh-keygen`.  You should be able to just use the defaults by
+hitting enter a few times (I don't recommend setting a password for
+this or a passphrase). It looks like the following on a Mac, but
+should work the same on Windows.  If `ssh-keygen` isn't found, then
+you should skip the rest of this section and go back to the next steps
+on the [main page](README.md) for now (feel free to get help more
+specific to your setup during office hours).
+
+Note that the `ssh-keygen` creates a "private key" on the computer
+where you run it that will let you connect to your VM without a
+password via SSH this semester.  If you switch computers at some
+point, you'll need to revisit this part of the lab.
 
 <img src="img/15.png" width=600>
 
