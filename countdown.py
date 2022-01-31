@@ -14,6 +14,7 @@ def main():
     f = open(filename, "w")
     for i in range(count):
         f.write(str(count-i) + "\n")
+    f.write("go!\n")
     f.close()
 
 main()
