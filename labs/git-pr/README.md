@@ -6,17 +6,6 @@ In this lab, you'll practice using git and GitHub.  You'll do the following:
 2. create your own repo on GitHub, and push changes there
 3. make tentative changes to someone else's GitHub repo, and create a "pull request" to recommend that the repo's owner integrate your changes
 
-You can do this lab on your virtual machine, which should already have
-git installed.
-
-You might also want to install git on your own laptop at some point.
-Windows directions: https://git-scm.com/download/win.  Mac directions:
-https://www.ics.uci.edu/~pattis/common/handouts/macmingweclipse/allexperimental/macxcodecommandlinetools.html.
-You're welcome to do this lab directly on your laptop (instead of on
-the virtual machine), though if you run into any tricky issues
-installing or using git directly on your laptop, you should probably
-switch back to using your virtual machine.
-
 ## Background
 
 A **repo** contains a bunch of commits, and usually a few branches to
