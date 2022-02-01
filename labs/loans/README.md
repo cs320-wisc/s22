@@ -108,8 +108,8 @@ make sure the `Applicant.__init__` constructor properly fills the
 `race` set.
 
 ```python
-loan = loans.Applicant("20-30", ["1", "2", "3"])
-loan.race
+applicant = loans.Applicant("20-30", ["1", "2", "3"])
+applicant.race
 ```
 
 You should see this set:
@@ -128,7 +128,7 @@ Add a `__repr__` method to your `Applicant` class:
         return ????
 ```
 
-Putting `loan` at the end of a cell or printing `repr(loan)` should show this:
+Putting `applicant` at the end of a cell or printing `repr(applicant)` should show this:
 
 ```
 Applicant('20-30', ['American Indian or Alaska Native', 'Asian', 'Black or African American'])
@@ -152,7 +152,7 @@ It should also support ages like "<75" (should just return the int
 Try your method (you should get the int `20` since the age is "20-30"):
 
 ```python
-loan.lower_age()
+applicant.lower_age()
 ```
 
 Hints: you could use `.replace` get get rid of unhelpful characters
