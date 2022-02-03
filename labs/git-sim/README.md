@@ -1,7 +1,7 @@
 # Git Simulator
 
 Let's start by practicing in the Git simulator <a
-href="https://tyler.caraza-harter.com/cs320/f21/learnGitBranching/index.html"
+href="https://tyler.caraza-harter.com/cs320/learnGitBranching/index.html"
 target="_blank">here</a>.  Try to run commands to get to the following state (if you get stuck, check the [solution here](solution.md)):
 
 <img src="1.png" width=500>
