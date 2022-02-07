@@ -1,18 +1,20 @@
 # Git Merging (and conflicts)
 
-1. In an SSH session, run `export EDITOR=nano` so that `nano` is your default editor for the following practice
+1. In an SSH session, run `export EDITOR=nano` so that `nano` is your default editor for the following practice.
 
-2. navigate (with `cd`) to `labs/git-conflict` within the semester repo.  Run `unzip repo.zip` to create a `repo` directory, which contains an `adder.py` program.
+2. Clone the directory first (run `git clone https://github.com/cs320-wisc/s22.git`). If you have already cloned it, run `git pull` to update the directory.
 
-3. `cd` to the `repo` directory and run the program: `python3 adder.py`.
+3. navigate (with `cd`) to `labs/git-conflict` within the semester repo.  Run `unzip repo.zip` to create a `repo` directory, which contains an `adder.py` program. (If you cannot run `unzip` correctly, try to install unzip by running `sudo apt install unzip`.)
 
-4. use `ls` and `cat` (or `nano`) to browse the file(s) in the repo
+4. `cd` to the `repo` directory and run the program: `python3 adder.py`.
 
-5. run `git branch`, making a note of what branch the HEAD is currently on (the `*` indicates the `HEAD`).  Make a note of the other branches.
+5. use `ls` and `cat` (or `nano`) to browse the file(s) in the repo
 
-6. your job is to merge the other branches into the main branch, using `git merge ????` commands.  After each merge, check what files are in the directory you're working and what they contain.
+6. run `git branch`, making a note of what branch the HEAD is currently on (the `*` indicates the `HEAD`).  Make a note of the other branches.
 
-7. when you're all done, delete the other branches (keeping only the `main` branch): `git branch -D ????`
+7. your job is to merge the other branches into the main branch, using `git merge ????` commands.  After each merge, check what files are in the directory you're working and what they contain.
+
+8. when you're all done, delete the other branches (keeping only the `main` branch): `git branch -D ????`
 
 **Notes:**
 
