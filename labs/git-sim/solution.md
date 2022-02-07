@@ -17,4 +17,4 @@
 
 ## Result:
 
-<img src="step1/1.png" width=600>
+<img src="./1.png" width=600>
