@@ -2,11 +2,11 @@
 
 Before we start our lab work for today, here's a refresher for both the DFS and BFS algorithms:
 
-# Depth-First Search (DFS)
+## Depth-First Search (DFS)
 Depth-first search (DFS) is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking. (Wikipedia)
 
 # DFS - Example
-_For the following graph_
+_For the following graph_:
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Graph.traversal.example.svg" />
 
