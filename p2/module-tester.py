@@ -69,6 +69,84 @@ def loans_test():
 
     # TEST: Loan class
 
+    # init numeric fields
+    d = {"loan_amount": "123", "property_value": "456", "interest_rate": "4.4",
+         "applicant_age": "20", "applicant_race-1": "41", "applicant_race-2": "",
+         "applicant_race-3": "", "applicant_race-4": "", "applicant_race-5": "",
+         "co-applicant_age": "9999", "co-applicant_race-1": "", "co-applicant_race-2": "",
+         "co-applicant_race-3": "", "co-applicant_race-4": "", "co-applicant_race-5": ""}
+    loan = loans.Loan(d)
+    assert loan.loan_amount == 123
+    assert loan.property_value == 456
+    assert loan.interest_rate == 4.4
+    loans_points += 1
+
+    assert str(loan) == "<Loan: 4.4% on $456.0 with 1 applicant(s)>"
+    assert repr(loan) == str(loan)
+    loans_points += 1
+
+    d["loan_amount"] = "NA"
+    d["property_value"] = "Exempt"
+    d["interest_rate"] = "NA"
+    loan = loans.Loan(d)
+    assert loan.loan_amount == -1
+    assert loan.property_value == -1
+    assert loan.interest_rate == -1
+    loans_points += 1
+
+    # applicants/race
+    assert len(loan.applicants) == 1
+    assert loan.applicants[0].race == {race_lookup[d["applicant_race-1"]]}
+    loans_points += 1
+
+    d["co-applicant_age"] = "21"
+    d["co-applicant_race-1"] = "3"
+    d["co-applicant_race-2"] = "5"
+    loan = loans.Loan(d)
+    assert len(loan.applicants) == 2
+    assert loan.applicants[1].race == {race_lookup[d["co-applicant_race-1"]], race_lookup[d["co-applicant_race-2"]]}
+    loans_points += 1
+
+    for i in range(1, 6):
+        d[f"applicant_race-{i}"] = str(i)
+    loan = loans.Loan(d)
+    assert loan.applicants[0].race == {race_lookup[str(i)] for i in range(1,6)}
+    loans_points += 1
+
+    # yearly_amounts
+    d["loan_amount"] = "1000"
+    d["interest_rate"] = "100"
+    loan = loans.Loan(d)
+    amounts = list(loan.amount_by_year(1050))
+    expected = [1000.0, 950.0, 850.0, 650.0, 250.0]
+    assert len(amounts) == len(expected)
+    for v1, v2 in zip(amounts, expected):
+        assert abs(v1-v2) < 0.1
+    loans_points += 1
+
+    amounts = loan.amount_by_year(0)
+    assert(next(amounts) == 1000)
+    assert(next(amounts) == 2000)
+    assert(next(amounts) == 4000)
+    assert(next(amounts) == 8000)
+    loans_points += 1
+
+    # TEST: Bank class
+    bank = loans.Bank("First Home Bank")
+    assert bank.lei == "549300DMI3W6YLDVSK93"
+    loans_points += 1
+
+    assert len(bank) == 45
+    assert bank[1].interest_rate == 2.5
+    assert bank[1].property_value == 235000.0
+    assert len(bank[1].applicants) == 2
+    loans_points += 1
+
+    assert bank[8].interest_rate == 2.75
+    assert bank[8].property_value == 215000
+    assert len(bank[8].applicants) == 1
+    loans_points += 1
+
 def search_test():
     search_points = 0
     pass
