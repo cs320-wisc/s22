@@ -63,8 +63,7 @@ password (you likely setup an SSH key during the first lab to access
 your virtual machine).  It's recommended (but not required) that you
 configure GitHub with an SSH key following [these directions](ssh.md).
 
-**Important:** for participation credit, fill [this
-  form](https://docs.google.com/forms/d/e/1FAIpQLScNAmkEMJKY9HNlC2b4Tx3exIPWvL4hUS_PVtmCxmbrZpqPxQ/viewform?usp=sf_link) so that we know you
+**Important:** for participation credit, fill [this form](https://forms.gle/BiyfdLRjuGmgcz2t8) so that we know you
   completed this part.  Associating your GitHub name with your
   @wisc.edu user will also let us give you credit for pull requests
   you might make to improve the course.
