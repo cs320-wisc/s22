@@ -148,8 +148,72 @@ def loans_test():
     loans_points += 1
 
 def search_test():
+    global search_points
     search_points = 0
-    pass
+
+    # Node
+    n = search.Node("test")
+    assert n.key == "test"
+    assert n.values == []
+    assert n.left == None
+    assert n.right == None
+    search_points += 1
+
+    # BST
+    t = search.BST()
+    search_points += 1
+    
+    # add
+    t.add("B", 3)
+    search_points += 1
+
+    # len
+    assert len(t.root) == 1
+    t.add("A", 2)
+    assert len(t.root) == 2
+    t.add("C", 1)
+    assert len(t.root) == 3
+    t.add("C", 4)
+    assert len(t.root) == 4
+    search_points += 1
+
+    # lookup
+    assert t.root.lookup("A") == [2]
+    search_points += 1
+    assert t.root.lookup("C") == [1, 4]
+    assert t.root.lookup("Z") == []
+    search_points += 1
+
+    # lookup with brackets
+    assert t["A"] == [2]
+    assert t["C"] == [1, 4]
+    assert t["Z"] == []
+    search_points += 1
+
+    # check different shapes
+    t = search.BST()
+    t.add("B", 2)
+    t.add("C", 3)
+    t.add("A", 1)
+    assert t.root.left.key == "A"
+    assert t.root.right.key == "C"
+    search_points += 1
+
+    t = search.BST()
+    t.add("A", 1)
+    t.add("B", 2)
+    t.add("C", 3)
+    assert t.root.right.key == "B"
+    assert t.root.right.right.key == "C"
+    search_points += 1
+
+    t = search.BST()
+    t.add("C", 3)
+    t.add("B", 2)
+    t.add("A", 1)
+    assert t.root.left.key == "B"
+    assert t.root.left.left.key == "A"
+    search_points += 1
 
 def main():
     global search, loans
@@ -191,7 +255,7 @@ def main():
         result["errors"].append("could not find search module")
 
     # summarize results
-    result["score"] = (loans_points + search_points) / 10 * 100
+    result["score"] = (loans_points + search_points * 2) / 40 * 100
     return result
 
 if __name__ == "__main__":
