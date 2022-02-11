@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* Feb 11: when counting pull requests per user, lines like `Revert "Merge pull request #859 from wvh/register_error_handler"` will count (even though this is technically undoing a pull request)
 
 ## Overview
 
@@ -463,6 +463,14 @@ Whenever a line from `git log` contains the text "Merge pull request" and "/", e
  ...
 }
 ```
+
+Note: there will be some entries like the following that are actually undoing a pull request:
+
+```
+Revert "Merge pull request #859 from wvh/register_error_handler"
+```
+
+For simplicity, we'll count these just like the original pull requests.
 
 ### Q29: what is the output of `pip3 instal`?  (yes, the mispelling was intentional)
 
