@@ -276,7 +276,7 @@ Manually test your `Loan` class from your notebook with a few snippets:
 Add a `__str__` method to your `Loan` class so that `print(loan)` gives the following:
 
 ```
-<Loan: -1.0% on $285000.0 with 1 applicant(s)>
+<Loan: 3.0% on $285000.0 with 1 applicant(s)>
 ```
 
 Add a `__repr__` that returns the same string as `__str__`.
