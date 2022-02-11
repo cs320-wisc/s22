@@ -206,6 +206,10 @@ def main():
     # compare to the answer key .csv file
     expected_path = sys.argv[2] if len(sys.argv) > 2 else ipynb.replace(".ipynb", "-key.csv")
     result = compare(expected_path, actual_path)
+
+    # run other tests
+
+    # save results
     result_path = os.path.join(os.path.dirname(ipynb), "test.json")
     with open(result_path, "w") as f:
         json.dump(result, f, indent=2)

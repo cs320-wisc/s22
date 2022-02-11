@@ -309,7 +309,7 @@ Your job:
 2. test your code from the notebook.  For example, you could run this from the notebook:
 
 ```python
-for amt in loan.amount_by_year(20000):
+for amt in loan.yearly_amounts(20000):
     print(amt)
 ```
 

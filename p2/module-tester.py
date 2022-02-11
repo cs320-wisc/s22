@@ -117,14 +117,14 @@ def loans_test():
     d["loan_amount"] = "1000"
     d["interest_rate"] = "100"
     loan = loans.Loan(d)
-    amounts = list(loan.amount_by_year(1050))
+    amounts = list(loan.yearly_amounts(1050))
     expected = [1000.0, 950.0, 850.0, 650.0, 250.0]
     assert len(amounts) == len(expected)
     for v1, v2 in zip(amounts, expected):
         assert abs(v1-v2) < 0.1
     loans_points += 1
 
-    amounts = loan.amount_by_year(0)
+    amounts = loan.yearly_amounts(0)
     assert(next(amounts) == 1000)
     assert(next(amounts) == 2000)
     assert(next(amounts) == 4000)

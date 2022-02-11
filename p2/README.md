@@ -47,18 +47,21 @@ As last time, your notebook should have a comment like this:
 # hours: ????
 ```
 
-You'll hand in 3 files:
+You'll hand in 4 files:
 * p2.ipynb
 * loans.py (first module developed in lab)
+* module-tester.py
 * search.py (second module developed in lab)
 
 Combine these into a zip by running the following in the `p2` directory:
 
 ```
-zip ../p2.zip p1.ipynb loans.py search.py
+zip ../p2.zip p1.ipynb loans.py search.py module-tester.py
 ```
 
-Hand in the resulting p2.zip file.
+Hand in the resulting p2.zip file.  Don't zip a different way (our
+tests won't run if you have an extra directory inside your zip, for
+example).
 
 # Group Part (75%)
 
@@ -109,6 +112,44 @@ For convenience, we want to be able to directly use brackets and `len` directly 
 * `len(uwcu)`
 
 Add the special methods to `Bank` necessary to make this work.
+
+### Testing
+
+Running `python3 tester.py p2.ipynb` does two things:
+
+1. compute a score based on whether answers in your `p2.ipynb` are correct
+2. get a second score by running `module-tester.py`, which exercises various classes/methods in `loan.py` and `search.py` (the next part)
+
+Your total score is an average of these two components.
+
+Try running `module-tester.py` now.  You should see this (assuming you haven't started `search.py`):
+
+```
+{'score': 40.0, 'errors': ['could not find search module']}
+```
+
+It should actually be possible to get 50.0 from `module-tester.py`
+after just completing `loans.py`, but we left some tests undone so you
+can get practice writing tests for yourself.
+
+Open `module-tester.py` and take a look at the `loans_test`.  The
+function tries different things (e.g., creating different `Loan` and
+`Applicant` objects and calling various methods.
+
+Whenever something works, a global variable `loans_points` is
+increased.  There are also asserts, and if any fail, the test stops
+giving points.  For example, here's a bit that tests the `lower_age`
+method:
+
+```python
+    # lower_age
+    assert loans.Applicant("<25", []).lower_age() == 25
+    assert loans.Applicant("20-30", []).lower_age() == 20
+    assert loans.Applicant(">75", []).lower_age() == 75
+    loans_points += 1
+```
+
+TODO
 
 ## Part 2: Binary Search Tree
 
