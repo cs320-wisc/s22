@@ -30,11 +30,16 @@ Things you'll practice:
 * classes
 * large datasets
 * trees
+* testing
+* writing modules
+
+There's a lot of new stuff here, and students have often reported back
+that P2 is the hardest of the semester, so we encourage you to start
+early.
 
 ## Testing
 
 Run `python3 tester.py p2.ipynb` often and work on fixing any issues.
-
 
 ## Submission
 
@@ -118,11 +123,11 @@ Add the special methods to `Bank` necessary to make this work.
 Running `python3 tester.py p2.ipynb` does two things:
 
 1. compute a score based on whether answers in your `p2.ipynb` are correct
-2. get a second score by running `module-tester.py`, which exercises various classes/methods in `loan.py` and `search.py` (the next part)
+2. get a second score by running `module-tester.py`, which exercises various classes/methods in `loan.py` (already done) and `search.py` (the next part)
 
 Your total score is an average of these two components.
 
-Try running `module-tester.py` now.  You should see this (assuming you haven't started `search.py`):
+Try running `module-tester.py` now.  You should see this (assuming you haven't worked ahead on `search.py`):
 
 ```
 {'score': 40.0, 'errors': ['could not find search module']}
@@ -134,7 +139,7 @@ can get practice writing tests for yourself.
 
 Open `module-tester.py` and take a look at the `loans_test`.  The
 function tries different things (e.g., creating different `Loan` and
-`Applicant` objects and calling various methods.
+`Applicant` objects and calling various methods).
 
 Whenever something works, a global variable `loans_points` is
 increased.  There are also asserts, and if any fail, the test stops
@@ -149,7 +154,12 @@ method:
     loans_points += 1
 ```
 
-TODO
+You should add some additional test code of your choosing (based on
+where you think bugs are most likely to occur).  When the additional
+code shows that `loans.py` works correctly, it should add 4 points to
+`loan_points`.  You could do this is one step (`loans_points += 4`),
+or better, divide the points over the testing of a few different
+aspects.
 
 ## Part 2: Binary Search Tree
 
@@ -219,4 +229,3 @@ Answer with a bar graph, where the x-axis is race, and the y-axis is number of a
 ### Q10: how many nodes are in the tree?
 
 Write a recursive function or method to count the nodes.
-
