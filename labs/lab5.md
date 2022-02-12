@@ -1,3 +1,5 @@
+# DON'T START YET (UNDER REVISION)
+
 # Lab 5
 
 Activities:

@@ -1,5 +1,3 @@
-# DON'T START YET (UNDER REVISION)
-
 # Project 2: Loan Analysis
 
 ## Corrections/Clarifications
@@ -55,13 +53,13 @@ As last time, your notebook should have a comment like this:
 You'll hand in 4 files:
 * p2.ipynb
 * loans.py (first module developed in lab)
-* module-tester.py
+* module_tester.py
 * search.py (second module developed in lab)
 
 Combine these into a zip by running the following in the `p2` directory:
 
 ```
-zip ../p2.zip p1.ipynb loans.py search.py module-tester.py
+zip ../p2.zip p2.ipynb loans.py search.py module_tester.py
 ```
 
 Hand in the resulting p2.zip file.  Don't zip a different way (our
@@ -123,21 +121,21 @@ Add the special methods to `Bank` necessary to make this work.
 Running `python3 tester.py p2.ipynb` does two things:
 
 1. compute a score based on whether answers in your `p2.ipynb` are correct
-2. get a second score by running `module-tester.py`, which exercises various classes/methods in `loan.py` (already done) and `search.py` (the next part)
+2. get a second score by running `module_tester.py`, which exercises various classes/methods in `loan.py` (already done) and `search.py` (the next part)
 
 Your total score is an average of these two components.
 
-Try running `module-tester.py` now.  You should see this (assuming you haven't worked ahead on `search.py`):
+Try running `module_tester.py` now.  You should see the following (assuming you haven't worked ahead on `search.py`):
 
 ```
 {'score': 40.0, 'errors': ['could not find search module']}
 ```
 
-It should actually be possible to get 50.0 from `module-tester.py`
+It should actually be possible to get 50.0 from `module_tester.py`
 after just completing `loans.py`, but we left some tests undone so you
 can get practice writing tests for yourself.
 
-Open `module-tester.py` and take a look at the `loans_test`.  The
+Open `module_tester.py` and take a look at the `loans_test`.  The
 function tries different things (e.g., creating different `Loan` and
 `Applicant` objects and calling various methods).
 

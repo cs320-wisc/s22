@@ -1,6 +1,7 @@
 import os, sys, json, csv, re, math
 import matplotlib.pyplot as plt
 from collections import namedtuple
+import module_tester
 
 Answer = namedtuple("Answer", ["question", "type", "value", "notes"])
 
@@ -186,7 +187,6 @@ def compare(expected_csv, actual_csv):
     result["missing"] = sorted(set(expected_rows.keys()) - set(actual_rows.keys()))
     score = round(100 * passing / len(expected_rows))
     result["score"] = score
-    result["summary"] = f"Result: {passing} of {len(expected_rows)} passed, for an estimated score of {score}% (prior to grader deductions)."
     return result
 
 # generates a summary of answers for SOME_NAME.ipynb in a file named SOME_NAME.csv.
@@ -205,9 +205,22 @@ def main():
 
     # compare to the answer key .csv file
     expected_path = sys.argv[2] if len(sys.argv) > 2 else ipynb.replace(".ipynb", "-key.csv")
-    result = compare(expected_path, actual_path)
+    result_notebook = compare(expected_path, actual_path)
 
     # run other tests
+    result_module = module_tester.main()
+    assert result_module["score"] <= 100
+
+    print(result_notebook)
+    print(result_module)
+
+    score = (result_notebook["score"] + result_module["score"]) / 2
+    result = {
+        "score": score,
+        "errors": result_notebook["errors"] + result_module["errors"],
+        "missing": result_notebook["missing"],
+        "summary": f"Result: estimated score of {score}% as average of {result_module['score']}% (modules) and {result_notebook['score']}% (notebook), prior to grader deductions."
+    }
 
     # save results
     result_path = os.path.join(os.path.dirname(ipynb), "test.json")
