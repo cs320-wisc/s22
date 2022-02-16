@@ -2,7 +2,8 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* Feb 16: until you add some tests of your own to `module_tester.py`, the best score you can get from `module_tester.py` is 90% and the best score you can get from `tester.py` is 95%.
+* Feb 16: added clarification about questions that need to wait until after we cover BSTs in lecture and lab
 
 ## Overview
 
@@ -163,11 +164,13 @@ aspects.
 
 Finish the `Node` and `BST` classes from lab (if you haven't already done so): https://github.com/cs320-wisc/s22/blob/main/labs/lab5.md
 
+**Note:** if we haven't gotten to BSTs in lecture and lab yet, you can still work on some of the questions in parts 2 and 3, but you should wait to work on the ones related to trees.
+
 Add a special method to `BST` so that if `t` is a `BST` object, it is possible to lookup items with `t["some key"]` instead of `t.root.lookup("some key")`.
 
 ## Part 3: First Home Bank Analysis
 
-For the following questions, create a `Bank` object for the bank named "First Home Bank".  Create a `BST` tree as well.  Loop over every loan in the bank, adding each to the tree.  The `key` passed to the `add` call should be the `.interest_rate` of the `Loan` object, and the `val` passed to `add` should be the `Loan` object itself.
+For the following questions, create a `Bank` object for the bank named "First Home Bank".
 
 ### Q1: what is the average interest rate for the bank?
 
@@ -186,6 +189,10 @@ Answer with a dictionary, like this:
 ### Q4: how many interest rate values are missing?
 
 Don't loop over every loan to answer.  Use your tree to get and count loans with missing rates (that is, `-1`).
+
+### Tree of Loans
+
+For the following question, create a `BST` tree.  Loop over every loan in thebank, adding each to the tree.  The `key` passed to the `add` call should be the `.interest_rate` of the `Loan` object, and the `val` passed to `add` should be the `Loan` object itself.
 
 ### Q5: how tall is the tree?
 
