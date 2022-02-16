@@ -164,9 +164,9 @@ aspects.
 
 Finish the `Node` and `BST` classes from lab (if you haven't already done so): https://github.com/cs320-wisc/s22/blob/main/labs/lab5.md
 
-**Note:** if we haven't gotten to BSTs in lecture and lab yet, you can still work on some of the questions in parts 2 and 3, but you should wait to work on the ones related to trees.
+**Note:** if we haven't gotten to BSTs in lecture and lab yet, you can still work on some of the questions in parts 3 and 4, but you should wait to work on the ones related to trees.
 
-Add a special method to `BST` so that if `t` is a `BST` object, it is possible to lookup items with `t["some key"]` instead of `t.root.lookup("some key")`.
+Add a special method to `BST` so that if `t` is a `BST` object so that it is possible to lookup items with `t["some key"]` instead of `t.root.lookup("some key")`.
 
 ## Part 3: First Home Bank Analysis
 
