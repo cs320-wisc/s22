@@ -254,8 +254,8 @@ Start with the following, then modify and add code:
 
 ```python
 class Loan:
-    def __init__(????, fields):
-        self.loan_amount = fields["loan_amount"]
+    def __init__(????, values):
+        self.loan_amount = values["loan_amount"]
         # add lines here
 ```
 
@@ -263,8 +263,8 @@ Requirements:
 * a `Loan` object should have four attributes: `loan_amount`, `property_value`, `interest_rate`, `applicants`
 * the first three attributes are floats (you'll need to convert from the strings found in `values`)
 * strings like "NA" and "Exempt" that represent missing values can be `-1` when you convert to floats
-* the `applicants` attribute should be a list of `Applicant` objects.  Every loan has at least one applicant, with age `fields["applicant_age"]` and race(s) in the multiple `values["applicant_race-????"]` entries.
-* some loans have a second applicant (but no more) -- you'll know there is a second applicant when `fields["co-applicant_age"] != "9999"`.  In that case, `self.applicants` should contain two `Applicant` objects, with the info from the second coming from the `fields["co-applicant_age"]` and `values["co-applicant_race-????"]` entries.
+* the `applicants` attribute should be a list of `Applicant` objects.  Every loan has at least one applicant, with age `values["applicant_age"]` and race(s) in the multiple `values["applicant_race-????"]` entries.
+* some loans have a second applicant (but no more) -- you'll know there is a second applicant when `values["co-applicant_age"] != "9999"`.  In that case, `self.applicants` should contain two `Applicant` objects, with the info from the second coming from the `values["co-applicant_age"]` and `values["co-applicant_race-????"]` entries.
 
 Manually test your `Loan` class from your notebook with a few snippets:
 * `loan.interest_rate` should be `3.0`
