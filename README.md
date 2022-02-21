@@ -23,10 +23,10 @@ Corrections will regularly be added to this repo. Make sure to run `git pull` be
 
 - [Lab 2](./labs/lab2.md)
 - [Lab 3](./labs/lab3.md)
-
-<!---
 - [Lab 4](./labs/lab4.md)
 - [Lab 5](./labs/lab5.md)
+
+<!---
 - [Lab 6](./labs/lab6.md)
 - [Lab 7](./labs/lab7.md)
 - [Lab 8](./labs/lab8.md)
