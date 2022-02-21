@@ -92,7 +92,7 @@ B : [22]
 A : [9, 5]
 ```
 
-Play around with the order of lines 1, 2, and 3 above.  Can you
+Play around with the order of lines 1, 2, and 3 in `__dump()` above.  Can you
 arrange those three so that the output is in ascending alphabetical
 order, by key?
 
