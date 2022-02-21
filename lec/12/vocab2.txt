@@ -1,0 +1,13 @@
+path: 
+connected: 
+Directed: 
+DAG: 
+Acyclic: 
+Strongly connected: 
+Weakly connected: 
+Parent: 
+Child: 
+Root: 
+Leaf: 
+Tree: 
+Binary Tree: 
