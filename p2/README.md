@@ -4,6 +4,7 @@
 
 * Feb 16: until you add some tests of your own to `module_tester.py`, the best score you can get from `module_tester.py` is 90% and the best score you can get from `tester.py` is 95%.
 * Feb 16: added clarification about questions that need to wait until after we cover BSTs in lecture and lab
+* Feb 21: q7 wording corrected
 
 ## Overview
 
