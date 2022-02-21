@@ -217,7 +217,7 @@ Answer with a plot, where the x-axis is how many loans have been added so far, a
 
 Create a bar plot with two bars:
 1. time to find missing `interest_rate` values (`-1`) by looping over every loan and keeping a counter
-2. time to compute `len(NAME_OF_YOUR_BANK_OBJECT[-1])`
+2. time to compute `len(NAME_OF_YOUR_BST_OBJECT[-1])`
 
 <img src="q7.png">
 
