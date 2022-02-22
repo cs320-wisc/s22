@@ -5,6 +5,9 @@
 * Feb 16: until you add some tests of your own to `module_tester.py`, the best score you can get from `module_tester.py` is 90% and the best score you can get from `tester.py` is 95%.
 * Feb 16: added clarification about questions that need to wait until after we cover BSTs in lecture and lab
 * Feb 21: q7 wording corrected
+* Feb 22: q8, clarify limits
+* Feb 22: added note about performance plots
+* Feb 22: BST is needed for Q4
 
 ## Overview
 
@@ -187,13 +190,13 @@ Answer with a dictionary, like this:
 {'65-74': 21, '45-54': 21, ...}
 ```
 
+### Tree of Loans
+
+For the following questions, create a `BST` tree.  Loop over every loan in thebank, adding each to the tree.  The `key` passed to the `add` call should be the `.interest_rate` of the `Loan` object, and the `val` passed to `add` should be the `Loan` object itself.
+
 ### Q4: how many interest rate values are missing?
 
 Don't loop over every loan to answer.  Use your tree to get and count loans with missing rates (that is, `-1`).
-
-### Tree of Loans
-
-For the following question, create a `BST` tree.  Loop over every loan in thebank, adding each to the tree.  The `key` passed to the `add` call should be the `.interest_rate` of the `Loan` object, and the `val` passed to `add` should be the `Loan` object itself.
 
 ### Q5: how tall is the tree?
 
@@ -212,6 +215,8 @@ Build a new `Bank` and corresponding `BST` object as before, but now for "Univer
 
 Answer with a plot, where the x-axis is how many loans have been added so far, and the y-axis is the total time that has passed so far.  You'll need to measure how much time has elapsed (since the beginning) after each `.add` call using `time.time()`.
 
+**Note:** performance and the amount of noise will vary from one virtual machine to another, so your plot probably won't be identical (this applies to the other performance plots too).
+
 <img src="q6.png">
 
 ### Q7: how fast are tree lookups?
@@ -225,6 +230,8 @@ Create a bar plot with two bars:
 ### Q8: what is the relationship between property value and loan amount?
 
 Answer with a scatter plot where each point is a loan, the x-axis is the property value, and the y-axis is the loan amount.  Use black points and `alpha` (transparency) of 0.01.
+
+Exclude any loans for properties valued at >$1 million from the scatter plot.
 
 <img src="q8.png">
 
