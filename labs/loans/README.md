@@ -139,7 +139,7 @@ Applicant('20-30', ['American Indian or Alaska Native', 'Asian', 'Black or Afric
 You might notice that ages are given as strings rather than ints
 because we need to support ranges (like "20-30").
 
-Add a `lower_age` method that returns an the lower int of an applicant's age range:
+Add a `lower_age` method that returns the lower int of an applicant's age range:
 
 ```python
     def lower_age(self):
