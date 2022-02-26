@@ -35,7 +35,7 @@ class test_graph:
             children = self.nodes[n].children
             for i, child in enumerate(children):
                 g.edge(n, child.name, penwidth=str(len(children) - i), len="1.5")
-        return g._repr_svg_()
+        return g._repr_image_svg_xml()
 
     def dfs(self, src, dst):
         src, dst = str(src).upper(), str(dst).upper()

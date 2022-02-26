@@ -58,8 +58,8 @@ class GraphScraper:
 The idea here is that graphs come in many shapes and formats, but it
 would be nice if we could use the same DFS code when we want to search
 different kinds of graphs.  `GraphScaper` will implement depth-first
-search in the `dfs_search` method, but the `dfs_method` will call `go`
-to determine the children of a given node.
+search in the `dfs_visit` method, but the `dfs_visit` method will call
+`go` to determine the children of a given node.
 
 Subclasses of `GraphScraper` can override `go` to lookup the children
 of a node in different kinds of graphs.
@@ -98,7 +98,7 @@ df
 ```
 
 A grid of ones and zeros like this is a common way to represent
-directed graphs.  A "1" in the "C" column of the "B" row means that
+directed graphs.  A `1` in the "C" column of the "B" row means that
 there is an edge from node B to node C.
 
 Try drawing a directed graph on a piece of paper based on the above
@@ -130,7 +130,8 @@ class MatrixSearcher(????):
         return children
 ```
 
-Test it, checking what nodes are reachable from each starting point:
+Complete the `????` and `TODO` parts.  Test it, checking what nodes
+are reachable from each starting point:
 
 ```python
 m = MatrixSearcher(df)
