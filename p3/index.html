@@ -1,0 +1,63 @@
+<html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+      $(document).ready(function() {
+        window.customData = {}
+        window.customData.rootURL = window.location.href
+        const passwordInput = $('#password');
+        const attemptButton = $('#attempt-button');
+        const passwordCheckURL = `${window.customData.rootURL}password`
+
+        const tryPassword = () => {
+          const data = passwordInput.val()
+          $.post({
+            type: "POST",
+            url: passwordCheckURL,
+            data: data,
+            contentType: "application/text; charset=utf-8",
+            dataType: "json"
+          }).then((resp) => {
+            if(resp !== 'NO'){
+              newURL = window.customData.rootURL + resp
+              window.location.href = newURL
+            }
+          });
+        }
+        attemptButton.click(tryPassword)
+      });
+   </script>
+   </head>
+        
+  <body>
+    <h1>Welcome!</h1>
+
+      <p> Gumshoes, the cyber crimes division of ACME needs YOUR help to track down the infamous hacker Blue Palo Alto. </p>
+          
+      <p>We've received reports of him popping up all over the world, but we have no clue in what order he visited these locations or where he is now. Use your knowledge of Breadth-First and Depth-First search to navigate his travel history, figure out the order he visited these locations in, and then use the clues found at each location to crack his password and reveal his current whereabouts! </p>
+    
+    
+    <div class="interactivity-container">
+      <h3><a href="Node_1.html" id="maze-entrance">TRAVEL HISTORY</a></h3>
+        <!-- password keypad start here:Edits for f21-->
+        <h3><a> Enter the passcode and press go. </a></h3>
+        <h3><a id="display_password">Password:</a> <input id="password"> <button id="attempt-button">GO</button> </h3>
+    </div>
+    <!-- script to change output of password:-->
+    <script>
+    function addItems(btn_id){
+      var q= document.getElementById(btn_id).innerText;
+      var k=document.getElementById("display_password").innerText;
+      document.getElementById("display_password").innerHTML=k+q
+
+    }
+    function clearItems(){
+        document.getElementById("display_password").innerHTML="Password:"
+    }
+</script>
+    </body>
+</html>
+
+

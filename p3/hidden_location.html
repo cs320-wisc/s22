@@ -1,0 +1,89 @@
+
+<html>
+ <head>
+ <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="styles.css">
+<style>
+
+  table.center {
+    margin-left: auto; 
+    margin-right: auto;
+    border: 1px solid black;
+  }
+  .center {
+    text-align: center;
+  }
+
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: black;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .button-bfs {
+    background: rgb(177, 80, 90);
+    border-radius: 12px;
+    /* this is a maroon */
+  }
+  .button-dfs {
+    background: rgb(77, 80, 150);
+    border-radius: 12px;
+    /* this is a maroon */
+  }
+  .button2 {
+    background-color: blue; 
+    color: black; 
+    border: 2px solid #008CBA;
+  }
+
+  .button2:hover {
+    background-color: #008CBA;
+    color: white;
+  }
+</style>
+</head>
+
+<body>
+    <div>
+        <h1>TOP SECRET: Current Location!</h1>
+
+        
+    </div>
+
+    <button type="button"
+        onclick="btnClicked()" id="securityBtn">
+        View Location
+    </button>
+
+    <script>
+        function btnClicked() {
+            document.getElementById('securityBtn').innerText = 'Loading...';
+            setTimeout(revealLocation, 1000);
+           
+            
+        function revealLocation() {
+        var img_html = "<img id='image' src='https://admissions.wisc.edu/wp-content/uploads/sites/462/2020/04/aerial_UW_16mm11_6543-800x533.jpg'/>\n<p id='location'> BASCOM HALL <\p>";
+
+         
+            
+        var t = document.createElement("div");
+        t.innerHTML = img_html;
+        document.body.appendChild(t);
+            
+        
+         document.getElementById('securityBtn').style.visibility='hidden';
+      }
+      
+}
+</script>
+</body>
+
+</html>

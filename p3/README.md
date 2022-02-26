@@ -1,3 +1,5 @@
+# DON'T START YET -- DRAFT!
+
 # Project 3: Find the Path!
 
 ## Overview

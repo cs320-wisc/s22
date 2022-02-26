@@ -78,7 +78,7 @@ g.dfs_search("A")
 ```
 
 You should get an exception.  The purpose of `GraphScraper` is not to
-directly create objects, it is to let other clasess inherit
+directly create objects, it is to let other clases inherit
 `dfs_search` (we'll do that soon).
 
 ## Matrix Format

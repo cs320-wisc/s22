@@ -8,6 +8,6 @@ Activities:
 
 2. TODO: git pull practice
 
-3. practice graph [search order](./bfs-vs-dfs) --- TODO: fix svg
+3. practice graph [search order](./dfs-vs-bfs) --- TODO: fix svg
 
 4. start the [module](./dfs-class) you'll be building for P3
