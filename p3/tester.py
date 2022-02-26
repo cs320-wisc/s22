@@ -8,6 +8,8 @@ if len(sys.argv) > 1:
 else:
     import scrape
 
+expected_travellog = pd.read_csv("part3.csv")
+
 dfs_points = 0
 bfs_points = 0
 web_points = 0
@@ -96,13 +98,13 @@ def web_test():
                         f'http://localhost:{port}/Node_6.html',
                         f'http://localhost:{port}/Node_7.html']
     web_points += 5
-    expected = pd.read_csv("part3.csv")
     actual = ws.table()
+    expected = expected_travellog
 
     # how much overlap was there between the clues?
     both = len(set(expected["clue"]).intersection(actual["clue"]))
     either = len(set(expected["clue"]).union(actual["clue"]))
-    web_points += both / either * 10
+    web_points += int(both / either * 10)
 
     # did everything match?
     assert expected.shape == actual.shape
@@ -111,7 +113,21 @@ def web_test():
 
 def ind_test():
     global ind_points
-    assert 0
+    if os.path.exists("Current_Location.jpg"):
+        os.remove("Current_Location.jpg")
+
+    location = scrape.reveal_secrets(browser(), f'http://localhost:{port}', expected_travellog)
+    ind_points += 5
+
+    assert location == 'BASCOM HALL'
+    ind_points += 10
+
+    assert os.path.exists("Current_Location.jpg")
+    ind_points += 5
+
+    with open("Current_Location.jpg", "rb") as f:
+        assert len(f.read()) == 99951
+    ind_points += 5
 
 def main():
     # we'll return this summary at the end
@@ -136,6 +152,10 @@ def main():
 
     # summarize results
     assert max(dfs_points, bfs_points, web_points, ind_points) <= 25
+    result["dfs_points"] = dfs_points
+    result["bfs_points"] = bfs_points
+    result["web_points"] = web_points
+    result["ind_points"] = ind_points
     result["score"] = dfs_points + bfs_points + web_points + ind_points
     return result
 
