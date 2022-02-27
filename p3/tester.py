@@ -66,18 +66,26 @@ def dfs_test():
 def bfs_test():
     global bfs_points
 
+    # test go
     f = scrape.FileSearcher()
     bfs_points += 5
     assert f.go("1.txt") == ['2.txt', '4.txt']
     bfs_points += 5
 
+    # test bfs
     f = scrape.FileSearcher()
     f.bfs_search("1.txt")
     msg = f.message()
     bfs_points += 5
-
     assert msg == "MADCITY"
-    bfs_points += 10
+    bfs_points += 5
+
+    # test dfs
+    f = scrape.FileSearcher()
+    f.dfs_search("1.txt")
+    msg = f.message()
+    assert msg == "MACTIDY"
+    bfs_points += 5
 
 def web_test():
     global web_points
@@ -142,6 +150,7 @@ def main():
 
     # run tests, as far as we can
     for test in [dfs_test, bfs_test, web_test, ind_test]:
+        print("RUN:", test.__name__)
         try:
             test()
         except Exception as e:

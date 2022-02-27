@@ -5,11 +5,33 @@
 ## Overview
 
 In this project you will practice inheritance, graph search, and web
-scraping. You'll hand-in a module called `scrape.py`. It will contain
-three classes `GraphScraper`, `FileScraper` and `WebScraper`.
+scraping. You'll hand-in a module called `scrape.py`.
 
 Make sure to run the tests before handing in.  During development, we
 recommend having a debug.ipynb notebook to make calls to your module.
+
+## Testing
+
+Run `python3 tester.py` often and work on fixing any issues.
+
+## Submission
+
+You'll turn in one file (a Python module), `scrape.py`.  It should
+have a comment like the following:
+
+```python
+# project: p3
+# submitter: ????
+# partner: none
+# hours: ????
+```
+
+`scrape.py` will have the following
+* GraphSearcher (a class)
+* MatrixSearcher (a class)
+* FileSearcher (a class)
+* WebSearcher (a class)
+* reveal_secrets (a function)
 
 # Group Part (75%)
 
@@ -19,144 +41,92 @@ help from 320 staff (mentors, TAs, instructor).  You <b>may not</b>
 seek receive help from other 320 students (outside your group) or
 anybody outside the course.
 
-If you just want to run `python3 tester.py` from the terminal you must
-call your python script `scrape.py`. If you do not call it this you
-must run tester as `python3 tester.py <your_filename_here>`.
+## Part 1: DFS on Matrices (`MatrixSearcher`)
 
-## Part 1: Graph Search
+Complete the lab exercises if you haven't already done so: https://github.com/cs320-wisc/s22/blob/main/labs/lab6.md
 
-Paste the following starter code to your Python module.  Your job is
-complete:
+## Part 2: BFS on Files (`FileSearcher`)
 
-1. the `go` method in the `FileScraper` class (don't change the
-one in `GraphScraper`)
-2. the `bfs_search` method
-3. the `dfs_search` method.
+Add a `bfs_search` to `GraphSearcher`.  It should behave the same as
+`dfs_search`, but use the BFS algorithm instead of DFS.  The
+difference will be evident at the end if someone looks at the `.order`
+attribute.
 
-The two search methods will call `self.go` to visit nodes.  This will
-not work if called on a GraphScraper object directly (because that
-class should not have a working `go` method), but `FileScraper` (which
-does have a `go`) method will inherit them.
+Note that without changing `MatrixSearcher`, it now supports both DFS
+and BFS search since it inherits from `GraphSearcher`.
+
+Add another class, `FileSearcher`, which also inherits from
+`GraphSearcher`.  It should have three methods (besides those
+inherited): `__init__`, `go`, and `message`.
+
+The nodes of this graph are files in the `file_nodes` directory.  For
+example, `1.txt` contains this:
+
+```
+M
+2.txt,4.txt
+```
+
+This means the value for node `1.txt` is "M", and the children of
+`1.txt` are `2.txt` and `3.txt`.
+
+All the files will have two lines like this, with a value on the first
+line, and a comma-separated list of children on the second line.
+
+The `go` method should read a node file and return a list of children.
+For example:
 
 ```python
-import os, zipfile
-
-class GraphScraper:
-    def __init__(self):
-        self.visited = set()
-        self.BFSorder = []
-        self.DFSorder = []
-	self.travelLog = pandas.DataFrame() # Used for webscraping only
-
-    def go(self, node):
-        raise Exception("must be overridden in sub classes -- don't change me here!")
-
-    def dfs_search(self, node):
-        pass
-
-    def bfs_search(self, node):
-        pass
-
-class FileScraper(GraphScraper):
-    def go(self, node):
-        pass
+import scrape
+f = scrape.FileSearcher()
+print(f.go("1.txt"))
 ```
 
-The "file_nodes" directory will only contain .txt files, each
-corresponding to a node in a directed graph, and each containing four
-lines, formatted like this:
+Expected result: `['2.txt', '4.txt']`.  You could test this by pasting
+the sample code to a `debug.ipynb` notebook in your `p3` directory.
 
-1. name of the node
-2. names of the children nodes, separated by spaces
-3. "BFS: XXX" where "XXX" is a string
-4. "DFS: XXX" where "XXX" is a string
+`go` will also somehow record the values (1st lines) of the nodes that
+are visited, in order.  The `message` method should return all the
+values concatenated together.  Take a look at `bfs_test` in
+`tester.py` for an example of how this should work.
 
-Your task is to implement the `FileScraper` class to scrape the
-content of this directory.
+In general, reading test cases is a great way to see how your classes
+are supposed to work.  Specifications, like this document you're
+reading now, are sometimes ambiguous (sorry!), but test cases tell you
+what is expected from your code with complete precision.
 
-The `go` method in the `FileScraper` class should read one of the txt
-files and return a list of its children.  Whenever `go` reads a file,
-it should also append the BFS string (line 3 of the file) to the
-`BFSorder` list and append the DFS string (line 4 of the file) to the
-`DFSorder` list.  For example, you should be able to run the following
-in your debug notebook:
+It's often useful to copy/paste code snippets from `tester.py` to your
+`debug.ipynb` when your debugging an issue too.
 
-```python
-fs = FileScraper()
-print(fs.go("1"))
-print(fs.go("2"))
-print(fs.BFSorder)
-print(fs.DFSorder)
-```
+## Part 3: Web Crawling
 
-Expected output:
+Don't start this part until we learned about Selenium in class and how
+to run it in "headless" mode.
+
+For this part of the project you'll need to install a Chrome Browser
+and Chrome Driver onto your VM.
 
 ```
-['2', '4']
-['1', '3', '5']
-['M', 'A']
-['C', 'O']
-```
-
-Your `bfs_search` (non-recursive) and `dfs_search` (recursive) methods
-inherited from `GraphScraper` will perform graph search, somewhat like
-the `find` and `find_bfs` methods from the reading, respectively:
-https://tyler.caraza-harter.com/cs320/f21/lec/15-graphsearch1/reading.html
-
-There are a few differences, however (your version will be somewhat
-simpler overall):
-
-1. we are not looking for a path to any particular destination.  We just want to explore the graph and see what info about nodes we can discover.  This is why we don't have any `dst` parameter.  Our `search` methods will also not need to return anything or do any backtracking.
-2. there is not a `Node` class; instead, the methods are in the `GraphScraper` class.  So `self` will no longer refer to a Node object.  Instead, we'll know what node we're on because the name is passed in to the `node` parameter of the search functions
-3. also, as there is no `Node` class, we can't use something like `self.children` or `node.children` to learn the nodes of the class.  You should use the `go` method you just wrote for this purpose instead.
-
-We will only ever do one search on your graph object, so there's no
-need to ever clear out your `visited` list. (However, you will need to update `visited`, `BFSorder`, and `DFSorder` in the next class you make (`Webscraper`) to allow for multiple succesive searches.) 
-
-We've arranged the extra info in each file so that the correct search order will lead to recognizable words.  For example, if you run:
-
-```python
-fs = FileScraper()
-fs.dfs_search("1")
-fs.DFSorder
-```
-
-You should get `['C', 'O', 'V', 'I', 'D', '1', '9']`.
-
-## Part 2: Web Crawling
-
-For this part of the project you will also need to install a
-ChromeBrowser and ChromeDriver onto your VM. In this lab you will only
-work with selenium. *Note that we will be assuming that you are using the version of selenium specified in the install command. 
-
-```
-pip3 install selenium==3.141.0 beautifulsoup4 Flask lxml
+pip3 install selenium==4.1.2 beautifulsoup4 Flask lxml html5lib webdriver-manager
 sudo apt -y install chromium-browser
 ```
 
 When it's all done, run both of the following, and verify that both
-versions is 90+ (like "9X.X.X.X"):
+versions is 98+ (like "98.X.X.X"):
 
 ```
 chromium-browser --version
 chromium.chromedriver --version
 ```
 
-**Note 1**: your virtual machine does not have a graphical user interface,
-so you won't be able to follow some of the early examples until I show
-how to run in "headless" mode (unrelated to git's headless) and take
-screenshots, unless you figure out how to install selenium on your
-laptop as well for fun (we don't require it, as it can often get quite
-tricky except on the VMs).
-
-**Note 2**: launching many web browsers via code can quickly eat up
+**Note**: launching many web browsers via code can quickly eat up
   all the memory on your VM.  You can run the `htop` command to see
   how much memory you have (hit "q" to quit when done).  If you're low
   on memory (you might notice your VM being sluggish), you can run
   `pkill -f -9 chromium` shutdown all browser instances hanging around
   in the background.
 
-### `WebScraper` class
+### TODO TODO TODO TODO `WebSearcher` class
 
 You'll be scraping a website implemented as a web application built
 using the flask framework (you don't need to know flask for this
@@ -187,7 +157,7 @@ Use selenium to do the scraping.  BeautifulSoup is probably also
 helpful, though not required.  Start with the following:
 
 ```python
-class WebScraper(GraphScraper):
+class WebSearcher(GraphSearcher):
     # required
     def	__init__(self, driver=None):
         super().__init__()
@@ -248,7 +218,7 @@ driver = webdriver.Chrome(options=options, executable_path="chromium.chromedrive
 # TODO: use IP address of your VM
 start_url = "http://YOUR_IP_HERE:5000/Node_1.html"
 
-s = WebScraper(driver)
+s = WebSearcher(driver)
 print(s.go(start_url))
 
 dtravellog = s.dfs_pass(start_url)
@@ -309,7 +279,7 @@ BFS Travel Log
 You have to do the remainder of this project on your own.  Do not
 discuss with anybody except 320 staff (mentors, TAs, instructor).
 
-## Part 3: `protected_df` method
+## Part 4: `protected_df` method
 
 The method should navigate to the given URL, enter the password into
 the keypad, click GO, and return a String identifying the current location. In addition, the method should scrape and download the image of the current location, saving it as 'Current_Location.jpg'. 
