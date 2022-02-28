@@ -57,7 +57,7 @@ class GraphSearcher:
 
 The idea here is that graphs come in many shapes and formats, but it
 would be nice if we could use the same DFS code when we want to search
-different kinds of graphs.  `GraphScaper` will implement depth-first
+different kinds of graphs.  `GraphSearcher` will implement depth-first
 search in the `dfs_visit` method, but the `dfs_visit` method will call
 `go` to determine the children of a given node.
 
