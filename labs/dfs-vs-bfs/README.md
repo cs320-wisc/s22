@@ -191,7 +191,8 @@ answer:
 
 ## Problem 2 [4-node, BFS]
 
-Paste+run the following:
+Paste+run the following(same graph structure as last time, but you'll
+visit the nodes in a different order by doing a BFS):
 
 ```python
 g = test_graph()
@@ -204,8 +205,7 @@ g.bfs(1, 3)
 
 ## Problem 3 [7-node, DFS+BFS]
 
-Paste+run the following (same graph structure as last time, but you'll
-visit the nodes in a different order):
+Paste+run the following:
 
 ```python
 g = test_graph()
