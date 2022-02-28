@@ -2,6 +2,10 @@
 
 # Project 3: Find the Path!
 
+## Corrections/Clarifications
+
+* none yet
+
 ## Overview
 
 In this project you will practice inheritance, graph search, and web
