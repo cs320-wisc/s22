@@ -1,12 +1,16 @@
-import os, sys, importlib, json
+import os, sys, importlib, json, re
 from subprocess import Popen
 import traceback
 import pandas as pd
 
 if len(sys.argv) > 1:
     scrape = importlib.import_module(student_file_name.split(".")[0])
+    with open(student_file_name) as f:
+        code = f.read()
 else:
     import scrape
+    with open("scrape.py") as f:
+        code = f.read()
 
 expected_travellog = pd.read_csv("part3.csv")
 
@@ -143,6 +147,15 @@ def main():
         "score": None,
         "errors": [],
     }
+
+    # check they aren't hardcoding
+    matches = re.findall(r"((\d{1,3}\.){3}\d{1,3})", code)
+    if matches:
+        result["errors"].append(f"You are not allowed to hardcode IP addresses like {matches[0][0]} in your code.")
+        return result
+    if "localhost" in code.lower():
+        result["errors"].append(f"'localhost' may not appear in your code.")
+        return result
 
     # launch application.py
     f = open("web.log", "a")

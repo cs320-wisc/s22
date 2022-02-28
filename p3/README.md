@@ -98,21 +98,23 @@ what is expected from your code with complete precision.
 It's often useful to copy/paste code snippets from `tester.py` to your
 `debug.ipynb` when your debugging an issue too.
 
-## Part 3: Web Crawling
+## Part 3: Web Crawling (`WebSearcher`)
 
 Don't start this part until we learned about Selenium in class and how
 to run it in "headless" mode.
 
-For this part of the project you'll need to install a Chrome Browser
-and Chrome Driver onto your VM.
+For this part of the project you'll need to install a Chrome and a few
+packages on your VM:
 
 ```
-pip3 install selenium==4.1.2 beautifulsoup4 Flask lxml html5lib webdriver-manager
+pip3 install selenium==4.1.2 Flask lxml html5lib
 sudo apt -y install chromium-browser
 ```
 
 When it's all done, run both of the following, and verify that both
-versions is 98+ (like "98.X.X.X"):
+commands print the same version and it is 98+ (like "98.X.X.X", but it
+may be a bigger number if there are browser updates before P3 is
+complete):
 
 ```
 chromium-browser --version
@@ -126,10 +128,10 @@ chromium.chromedriver --version
   `pkill -f -9 chromium` shutdown all browser instances hanging around
   in the background.
 
-### TODO TODO TODO TODO `WebSearcher` class
+### Launching the Website
 
 You'll be scraping a website implemented as a web application built
-using the flask framework (you don't need to know flask for this
+using the Flask framework (you don't need to know flask for this
 project, though you'll learn it soon and get a chance to build your
 own website in the next project).  In an SSH session, run the
 following to launch it:
@@ -138,65 +140,51 @@ following to launch it:
 python3 application.py
 ```
 
-Then, open `http://<YOUR-VM-IP>:5000` in your web browser. Do not use the IP address that is output to console in the ssh session. This is incorrect.It should look like this:
+Then, open `http://<YOUR-VM-IP>:5000` in your web browser. **Do not**
+use the IP address that is printed to console in the ssh session (it
+won't work).  It should look like this:
 
-<img src="webpage.jpg" width=600>
+<img src="webpage.png" width=600>
 
-Each page (under "TRAVEL HISTORY") contains information in the form of
-a table.  If you do either a DFS or BFS search through the site and
-concatenate the table rows from the pages in the order in which they're
-visited, you'll get a completed table of locations.
+If you click "TRAVEL HISTORY", you'll enter a graph of pages, each
+with a table fragment.  Your job is to search the graph (using the
+search methods you wrote earlier), collect all the table fragments,
+and concatenate them into one big DataFrame.
 
-Each row in the table contains a 'clue'. Combining these 'clues' in the order shown by the table (first row to last row), will give you a passcode. 
+### `WebSearcher` Class
 
-By performing both searches, you'll get two passwords.  Entering
-either correct password on the home page will redirect you to a
-different page.
+Write a `WebSearcher` class that inherits from `GraphSearcher`.  The
+constructor should take a Chrome webdriver object as a parameter so
+that it is possible to create `WebSearcher` object with `ws =
+WebSearcher(some_driver)`.
 
-Use selenium to do the scraping.  BeautifulSoup is probably also
-helpful, though not required.  Start with the following:
+For example, one could run the following:
 
 ```python
-class WebSearcher(GraphSearcher):
-    # required
-    def	__init__(self, driver=None):
-        super().__init__()
-        self.driver = driver
-
-    # these three can be done as groupwork
-    def go(self, url):
-        pass
-
-    def dfs_pass(self, start_url):
-        pass
-
-    def bfs_pass(self, start_url):
-        pass
-
-    # write the code for this one individually
-    def protected_df(self, url, password):
-        pass
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium import webdriver
+options = Options()
+options.headless = True
+service = Service(executable_path="chromium.chromedriver")
+driver = webdriver.Chrome(options=options, service=service)
 ```
 
+The `go` method of `WebSearcher` should treat the node as a URL.  It
+should use the webdriver to visit that page and return the URLs of
+other pages to which the visited page has hyperlinks.  See `web_test`
+in the tester for examples of how it should behave.
 
-**Note**: Make sure to kill the application before running the tester.py. (The tester tries to open an application on the same port!) When you want to kill the application make sure to shut it down via CTRL-C in your ssh session. This will shut it down properly, any other way could result in hangtime errors, so you may have to re-ssh in. As well if your tester.py hangs (never throws an error and stops execution) make sure you kill the command via CTRL-C for the same reason as above. 
+The `go` method should also use the following to read any table
+fragments on a visited page and store them somewhere (for example, in
+an attribute):
 
-### `go` method
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_html.html
 
-Treat each page as a node, and each hyperlink as a directed
-edge. Implement the `go` method such that, each time a page is visited the table rows are appended to self.travelLog. 
-
-### `dfs_pass` method
-
-Use the inherited `dfs_search` method to return the DFS travel log (a data frame with rows ordered corresponding to the rows on the visited pages when performing a DFS). 
-
-You may want to use this function: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_html.html
-
-The method should return the whole DataFrame. 
-
-### `bfs_pass` method
-
-Like the method above, but for BFS. 
+`WebSearcher` should have a `table()` method that
+(concatenates)[https://pandas.pydata.org/docs/reference/api/pandas.concat.html]
+all the fragments in the order they were visited and returns one big
+DataFrame.  Use `ignore_index=False` when concatenating.
 
 ### Manual Debugging
 
@@ -205,73 +193,54 @@ test whether they're working:
 
 ```python
 import os
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium import webdriver
+import scrape
 
 # kill previous chrome instance if still around (to conserve memory)
 os.system("pkill -f -9 chromium")
 
 options = Options()
 options.headless = True
-driver = webdriver.Chrome(options=options, executable_path="chromium.chromedriver")
+service = Service(executable_path="chromium.chromedriver")
+driver = webdriver.Chrome(options=options, service=service)
 
 # TODO: use IP address of your VM
-start_url = "http://YOUR_IP_HERE:5000/Node_1.html"
+start_url = "http://YOUR_VM_IP:5000/Node_1.html"
 
-s = WebSearcher(driver)
+s = scrape.WebSearcher(driver)
 print(s.go(start_url))
 
-dtravellog = s.dfs_pass(start_url)
-print("\nDFS Travel Log\n", dtravellog)
+s = scrape.WebSearcher(driver)
+s.bfs_search(start_url)
 
-btravellog = s.bfs_pass(start_url)
-print("\nBFS Travel Log\n", btravellog)
+print(s.table())
 
-s.driver.close()
+driver.close()
 ```
 
 Expected output:
 
 ```
-['http://YOUR_IP_ADDRESS:5000/Node_2.html', 'http://YOUR_IP_ADDRESS:5000/Node_4.html']
-
-DFS Travel Log
+['http://YOUR_VM_IP:5000/Node_2.html', 'http://YOUR_VM_IP:5000/Node_4.html']
     clue   latitude   longitude                          description
-0     1  43.089034  -89.416128              Picnic Point in Madison
-1     7  38.105507  126.910613               Silver Beach in Hawaii
-0     1  65.044901  -16.712836  Shore of a Volcanic Lake in Iceland
-1     3  48.860945    2.335773                  The Louvre in Paris
-0     5  37.434183 -122.321990      Redwood forest in San Francisco
-0     4  29.975300   31.137600        Great Sphinx of Giza in Egypt
-1     1  47.557600   10.749800     Neuschwanstein Castle in Germany
-2     5  38.624700   90.184800        The Gateway Arch in St. Louis
-3     3  30.328500   35.444400                      Petra in Jordan
-4     2  41.480800   82.683400                    Cedar Point in OH
-0     2  27.987586   86.925002                 Mt. Everest in Nepal
-1     4  34.134117 -118.321495                 Hollywood Sign in LA
-2     5  38.655100   90.061800                 Cahokia Mounds in IL
-3     9  40.748400   73.985700          Empire State Building in NY
-0     8  51.180315   -1.829659                 Stonehenge in the UK
-0     6  43.070010  -89.409450          Quick Trip on Monroe Street
-
-BFS Travel Log
-    clue   latitude   longitude                          description
-0     1  43.089034  -89.416128              Picnic Point in Madison
-1     7  38.105507  126.910613               Silver Beach in Hawaii
-0     1  65.044901  -16.712836  Shore of a Volcanic Lake in Iceland
-1     3  48.860945    2.335773                  The Louvre in Paris
-0     8  51.180315   -1.829659                 Stonehenge in the UK
-0     5  37.434183 -122.321990      Redwood forest in San Francisco
-0     2  27.987586   86.925002                 Mt. Everest in Nepal
-1     4  34.134117 -118.321495                 Hollywood Sign in LA
-2     5  38.655100   90.061800                 Cahokia Mounds in IL
-3     9  40.748400   73.985700          Empire State Building in NY
-0     4  29.975300   31.137600        Great Sphinx of Giza in Egypt
-1     1  47.557600   10.749800     Neuschwanstein Castle in Germany
-2     5  38.624700   90.184800        The Gateway Arch in St. Louis
-3     3  30.328500   35.444400                      Petra in Jordan
-4     2  41.480800   82.683400                    Cedar Point in OH
-0     6  43.070010  -89.409450          Quick Trip on Monroe Street
+0      1  43.089034  -89.416128              Picnic Point in Madison
+1      7  38.105507  126.910613               Silver Beach in Hawaii
+2      1  65.044901  -16.712836  Shore of a Volcanic Lake in Iceland
+3      3  48.860945    2.335773                  The Louvre in Paris
+4      8  51.180315   -1.829659                 Stonehenge in the UK
+5      5  37.434183 -122.321990      Redwood forest in San Francisco
+6      2  27.987586   86.925002                 Mt. Everest in Nepal
+7      4  34.134117 -118.321495                 Hollywood Sign in LA
+8      5  38.655100   90.061800                 Cahokia Mounds in IL
+9      9  40.748400   73.985700          Empire State Building in NY
+10     4  29.975300   31.137600        Great Sphinx of Giza in Egypt
+11     1  47.557600   10.749800     Neuschwanstein Castle in Germany
+12     5  38.624700   90.184800        The Gateway Arch in St. Louis
+13     3  30.328500   35.444400                      Petra in Jordan
+14     2  41.480800   82.683400                    Cedar Point in OH
+15     6  43.070010  -89.409450          Quick Trip on Monroe Street
 ```
 
 # Individual Part (25%)
@@ -279,27 +248,27 @@ BFS Travel Log
 You have to do the remainder of this project on your own.  Do not
 discuss with anybody except 320 staff (mentors, TAs, instructor).
 
-## Part 4: `protected_df` method
+## Part 4: `reveal_secrets` function
 
-The method should navigate to the given URL, enter the password into
-the keypad, click GO, and return a String identifying the current location. In addition, the method should scrape and download the image of the current location, saving it as 'Current_Location.jpg'. 
-
-Note that after clicking a button, there might be a slight delay
-before `driver.page_source` reflects the new page.  Consider how you
-can use `time.sleep(...)` to reduce the chance that this will happen
-on some systems (like our test machine).
-
-You may consider using the urllibrequest.urlretrieve() function to download the image (https://docs.python.org/3/library/urllib.request.html)
-
-```python
-url = "http://YOUR_IP_ADDRESS:5000/"
-print(s.protected_df(url, DFS_OR_BFS_PASSWORD_HERE))
-```
-
-Should produce this:
+Write a function (remember that functions aren't inside any class) in
+`scrape.py` like the following:
 
 ```
-BASCOM HALL
-
-*AND you should see a 'Current_Location.jpg' appear in your working directory containing the image of the above location. 
+def reveal_secrets(driver, url, travellog):
+    ....
 ```
+
+The function should do the following:
+
+1. generate a password from the "clues" column of the `travellog` DataFrame.  For example, if `travellog` is the big DataFrame built after doing BFS (as shown earlier), the password will be start with "17138..."
+2. visit `url` with the `driver`
+3. automate typing the password in the box and clicking "GO"
+4. wait until the pages is loaded (perhaps with `time.sleep`)
+5. click the "View Location" button and wait until the result finishes loading
+6. save the image that appears to a file named 'Current_Location.jpg' (use the `requests` module to do the download, once you get the URL from selenium)
+7. return the current location that appears on the page (should be "BASCOM HALL")
+
+Hints for step 6: jpeg files are a binary format (they don't contain text for a human to read).  You'll need to do some searching online to learn how to (a) download binary data and (b) write it to a file.  Remember to cite any code you copy/paste.  Here are some example Google searches you might start with to find how to do these things:
+
+* "how to write bytes to a file in python"
+* "how to fetch a binary file with python requests"
