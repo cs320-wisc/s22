@@ -1,5 +1,3 @@
-# DON'T START YET -- DRAFT!
-
 # Project 3: Find the Path!
 
 ## Corrections/Clarifications
@@ -51,7 +49,7 @@ Complete the lab exercises if you haven't already done so: https://github.com/cs
 
 ## Part 2: BFS on Files (`FileSearcher`)
 
-Add a `bfs_search` to `GraphSearcher`.  It should behave the same as
+Add a `bfs_search` method to `GraphSearcher`.  It should behave the same as
 `dfs_search`, but use the BFS algorithm instead of DFS.  The
 difference will be evident at the end if someone looks at the `.order`
 attribute.
@@ -168,10 +166,13 @@ For example, one could run the following:
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
+
 options = Options()
 options.headless = True
 service = Service(executable_path="chromium.chromedriver")
 driver = webdriver.Chrome(options=options, service=service)
+
+ws = WebSearcher(driver)
 ```
 
 The `go` method of `WebSearcher` should treat the node as a URL.  It
@@ -186,7 +187,7 @@ an attribute):
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_html.html
 
 `WebSearcher` should have a `table()` method that
-(concatenates)[https://pandas.pydata.org/docs/reference/api/pandas.concat.html]
+[concatenates](https://pandas.pydata.org/docs/reference/api/pandas.concat.html)
 all the fragments in the order they were visited and returns one big
 DataFrame.  Use `ignore_index=False` when concatenating.
 
@@ -257,14 +258,14 @@ discuss with anybody except 320 staff (mentors, TAs, instructor).
 Write a function (remember that functions aren't inside any class) in
 `scrape.py` like the following:
 
-```
+```python
 def reveal_secrets(driver, url, travellog):
     ....
 ```
 
 The function should do the following:
 
-1. generate a password from the "clues" column of the `travellog` DataFrame.  For example, if `travellog` is the big DataFrame built after doing BFS (as shown earlier), the password will be start with "17138..."
+1. generate a password from the "clues" column of the `travellog` DataFrame.  For example, if `travellog` is the big DataFrame built after doing BFS (as shown earlier), the password will start with "17138..."
 2. visit `url` with the `driver`
 3. automate typing the password in the box and clicking "GO"
 4. wait until the pages is loaded (perhaps with `time.sleep`)
@@ -272,7 +273,7 @@ The function should do the following:
 6. save the image that appears to a file named 'Current_Location.jpg' (use the `requests` module to do the download, once you get the URL from selenium)
 7. return the current location that appears on the page (should be "BASCOM HALL")
 
-Hints for step 6: jpeg files are a binary format (they don't contain text for a human to read).  You'll need to do some searching online to learn how to (a) download binary data and (b) write it to a file.  Remember to cite any code you copy/paste.  Here are some example Google searches you might start with to find how to do these things:
+**Hints for step 6:** jpeg files are a binary format (they don't contain text for a human to read).  You'll need to do some searching online to learn how to (a) download binary data and (b) write it to a file.  Remember to cite any code you copy/paste.  Here are some example Google searches you might start with to find how to do these things:
 
 * "how to write bytes to a file in python"
 * "how to fetch a binary file with python requests"
