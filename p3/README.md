@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* none yet
+* 2/28 - Changed `GraphScraper` to `GraphSearcher` in lab 6
 
 ## Overview
 

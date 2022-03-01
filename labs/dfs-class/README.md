@@ -30,12 +30,12 @@ named `some_method` in your program, the type of `self` is what
 matters for determining which one runs.  It doesn't matter where the
 `self.some_method(...)` is (could be any method).
 
-## GraphScraper
+## GraphSearcher
 
 Copy and paste the following starter code (which you'll build on in the project):
 
 ```python
-class GraphScraper:
+class GraphSearcher:
     def __init__(self):
         self.visited = set()
         self.order = []
@@ -57,11 +57,11 @@ class GraphScraper:
 
 The idea here is that graphs come in many shapes and formats, but it
 would be nice if we could use the same DFS code when we want to search
-different kinds of graphs.  `GraphScaper` will implement depth-first
+different kinds of graphs.  `GraphSearcher` will implement depth-first
 search in the `dfs_visit` method, but the `dfs_visit` method will call
 `go` to determine the children of a given node.
 
-Subclasses of `GraphScraper` can override `go` to lookup the children
+Subclasses of `GraphSearcher` can override `go` to lookup the children
 of a node in different kinds of graphs.
 
 Replace the comments in `dfs_search` and `dfs_visit` with code (some
@@ -73,11 +73,11 @@ don't need to return any value.
 Try your code:
 
 ```python
-g = GraphScraper()
+g = GraphSearcher()
 g.dfs_search("A")
 ```
 
-You should get an exception.  The purpose of `GraphScraper` is not to
+You should get an exception.  The purpose of `GraphSearcher` is not to
 directly create objects, it is to let other clases inherit
 `dfs_search` (we'll do that soon).
 
@@ -115,7 +115,7 @@ for node, has_edge in df.loc["B"].items():
         print(????)
 ```
 
-Let's create a class that inherits from `GraphScraper` and works with
+Let's create a class that inherits from `GraphSearcher` and works with
 graphs represented as matrices:
 
 ```python
