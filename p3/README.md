@@ -189,7 +189,7 @@ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_html.html
 `WebSearcher` should have a `table()` method that
 [concatenates](https://pandas.pydata.org/docs/reference/api/pandas.concat.html)
 all the fragments in the order they were visited and returns one big
-DataFrame.  Use `ignore_index=False` when concatenating.
+DataFrame.  Use `ignore_index=True` when concatenating.
 
 ### Manual Debugging
 
