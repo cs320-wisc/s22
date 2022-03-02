@@ -70,7 +70,7 @@ M
 ```
 
 This means the value for node `1.txt` is "M", and the children of
-`1.txt` are `2.txt` and `3.txt`.
+`1.txt` are `2.txt` and `4.txt`.
 
 All the files will have two lines like this, with a value on the first
 line, and a comma-separated list of children on the second line.
