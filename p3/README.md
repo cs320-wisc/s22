@@ -70,7 +70,7 @@ M
 ```
 
 This means the value for node `1.txt` is "M", and the children of
-`1.txt` are `2.txt` and `3.txt`.
+`1.txt` are `2.txt` and `4.txt`.
 
 All the files will have two lines like this, with a value on the first
 line, and a comma-separated list of children on the second line.
@@ -189,7 +189,7 @@ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_html.html
 `WebSearcher` should have a `table()` method that
 [concatenates](https://pandas.pydata.org/docs/reference/api/pandas.concat.html)
 all the fragments in the order they were visited and returns one big
-DataFrame.  Use `ignore_index=False` when concatenating.
+DataFrame.  Use `ignore_index=True` when concatenating.
 
 ### Manual Debugging
 
