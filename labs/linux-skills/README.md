@@ -118,7 +118,7 @@ messages back and forth.
 You may want to bulk download files from your VM to your laptop.
 
 The `cp ORIGINAL_FILE NEW_COPY` command creates copies of a file.  The
-`ssh USER@IP` connects to a remote computer The `scp` command is a
+`ssh USER@IP` connects to a remote computer. The `scp` command is a
 combination of these that can upload/download files to/from a VM.
 
 On your **laptop**, run the following (don't SSH first; replace `USER` and `VM_IP`):
@@ -191,7 +191,7 @@ on port 2020.
 Open up a second terminal window and SSH again, so that you have two
 SSH sessions active at once.
 
-1. in one SSH session, `cd` to `s22/labs/linux-skills`, then run `python3 port_user.py`.  The program uses port `5555`, so no other process can start using that port until `port_user.py` stops.
+1. in one SSH session, `cd` to `s22/labs/linux-skills`, then run `python3 port_user.py`.  The program uses port `55555`, so no other process can start using that port until `port_user.py` stops.
 2. in the SSH session, run `lsof | grep 55555`
 
 You should see something somewhat like this (details will vary):
@@ -222,13 +222,13 @@ infinite loop, and it refuses to die when asked politely.  Try
 In the other window, run `htop`.  In addition to the summary of CPU
 and memory usage at the top, you'll see a list of processes below,
 sorted by CPU usage.  The `forever.py` program should one of the top
-ones.  Note down it's process ID (in the `PID` column).  Close `htop`
+ones.  Note down its process ID (in the `PID` column).  Close `htop`
 (you can type `q` for "quit").
 
 Try killing `forever.py` using the `kill PROCESS_ID` command like we
 did to kill `port_user.py` before.  Did it work?
 
-There are different kill signals can can be used to stop a process,
+There are different kill signals that can be used to stop a process,
 and each has a number.  For example, a few are 2 (interrupt), 6
 (abort), 9 (kill), 15 (terminate).
 

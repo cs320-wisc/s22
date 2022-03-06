@@ -1,5 +1,3 @@
-# DON'T START YET
-
 # Lab 7
 
 Activities:
@@ -10,4 +8,4 @@ Activities:
 
 2. Practice your [Linux Skills](./linux-skills)
 
-3. Exception Treasure Hunt
+3. Complete the [Exception Treasure Hunt](./bug-hunt)
