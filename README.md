@@ -24,9 +24,9 @@ Corrections will regularly be added to this repo. Make sure to run `git pull` be
 - [Lab 4](./labs/lab4.md)
 - [Lab 5](./labs/lab5.md)
 - [Lab 6](./labs/lab6.md)
+- [Lab 7](./labs/lab7.md)
 
 <!---
-- [Lab 7](./labs/lab7.md)
 - [Lab 8](./labs/lab8.md)
 - [Lab 9](./labs/lab9.md)
 - [Lab 10](./labs/lab10.md)
