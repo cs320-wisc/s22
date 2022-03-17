@@ -177,7 +177,7 @@ def run_all_tests(mod_name="main"):
 ########################################
 
 # see https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface#Example_of_calling_an_application
-def app_req(path, expect_str=True, expect_errors=False, method="GET", input_body=""):
+def app_req(path, expect_str=True, expect_errors=False, method="GET", input_body="", remote_addr="1.2.3.4"):
     errors = StringIO()
 
     parts = path.split("?")
@@ -203,6 +203,7 @@ def app_req(path, expect_str=True, expect_errors=False, method="GET", input_body
         "wsgi.multithread": False,
         "wsgi.multiprocess": False,
         "wsgi.run_once": False,
+        "REMOTE_ADDR": remote_addr,
     }
 
     status = None
@@ -243,16 +244,10 @@ def app_req(path, expect_str=True, expect_errors=False, method="GET", input_body
 def has_pages():
     points = 0
 
-    # Get SVG pages
-    status, headers, body = app_req("/")
-    page = BeautifulSoup(body, "lxml")
-    svg_path_ll = page.find_all("img", src=re.compile("\S+.svg\S*"))
-    svg_path_ll = [svg_path["src"] for svg_path in svg_path_ll]
-
     for link in ["/", "browse.html", "donate.html"]:
         status, headers, body = app_req(link)
         if status == "200 OK":
-            points += 1
+            points += 2
             page = BeautifulSoup(body, "lxml")
             if page.find_all(re.compile("^h[1-6]$")):
                 points += 1
@@ -261,18 +256,6 @@ def has_pages():
         else:
             print("missing page:", link)
 
-    svg_points = 0
-    for link in svg_path_ll:
-        try:
-            status, headers, body = app_req(link)
-        except TypeError as e:
-            print(e)
-            continue
-        if status == "200 OK":
-            svg_points += 1
-
-    points += min(3, svg_points)
-
     status, headers, body = app_req("/missing.html", expect_errors=True)
     if status == "404 NOT FOUND":
         points += 1
@@ -280,7 +263,6 @@ def has_pages():
         print("404 should be returned for a request to missing.html, but got", status)
 
     return points
-
 
 @test(points=6)
 def has_links():
@@ -295,7 +277,6 @@ def has_links():
         else:
             print(f"no hyperlink to {link} found on home page")
     return points
-
 
 @test(points=20)
 def browse():
@@ -527,32 +508,46 @@ def ab_test():
     return points
 
 @test(points=5)
-def robo_test():
-    base_url = "http://some-url.com"
-    status, headers, body = app_req("/robots.txt")
-    points = 1
-    if headers.get('Content-Type') == 'text/plain':
-        points += 1
-    else:
-        print(f"Need plan text as content type: {headers}")
+def rate_test():
+    status, headers, body = app_req("/browse.json", remote_addr="1.2.3.7")
+    assert status == "200 OK"
+    status, headers, body = app_req("/browse.json", remote_addr="1.2.3.7")
+    assert status == "429 TOO MANY REQUESTS"
+    assert "Retry-After" in headers
+    status, headers, body = app_req("/browse.json", remote_addr="1.2.3.8")
+    assert status == "200 OK"
+    status, headers, body = app_req("/browse.json", remote_addr="1.2.3.7")
+    assert status == "429 TOO MANY REQUESTS"
+    return 5
 
-    r = RobotFileParser(base_url + "/robots.txt")
-    r.parse(body.splitlines())
+@test(points=6)
+def has_svgs():
+    # Get SVG pages
+    status, headers, body = app_req("/")
+    page = BeautifulSoup(body, "lxml")
+    svg_path_ll = page.find_all("img", src=re.compile("\S+.svg\S*"))
+    svg_path_ll = [svg_path["src"] for svg_path in svg_path_ll]
 
-    for crawler in ["hungrycaterpillar", "busyspider", "other"]:
-        for page in ["/index.html", "/browse.html"]:
-            page = base_url + page
-            fetchable = r.can_fetch(crawler, page)
-            name = f"can_fetch({repr(crawler)}, {repr(page)})"
-            err = is_expected(actual=fetchable, name=name)
-            if err != None:
-                print(f"unexpected results for {name}: {err}")
+    svg_points = 0
+    for link in svg_path_ll:
+        try:
+            status, headers, body = app_req(link)
+        except TypeError as e:
+            print(e)
+            continue
+        if status == "200 OK":
+            svg_points += 1
+
+            if headers.get("Content-Type") == "image/svg+xml":
+                svg_points += 1
             else:
-                points += 0.5
+                print(headers)
+        else:
+            print(status)
 
-    return int(points)
+    return min(6, svg_points)
 
-@test(points=20)
+@test(points=14)
 def dashboard_examples():
     points = 0
 
@@ -601,10 +596,10 @@ def dashboard_examples():
             print(f"{svg_path} is not parseable as a SVG.")
 
     if num_valid_svg >= 3:
-        points += 20
+        points += 14
     else:
         print(f"Atleast 3 unique SVGs required, only {num_valid_svg} found.")
-        points += 20 * num_valid_svg / 3
+        points += 14 * num_valid_svg / 3
 
     return points
 
