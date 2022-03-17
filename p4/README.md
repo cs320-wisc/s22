@@ -6,8 +6,6 @@
 
 * none yet
 
-[FAQ Piazza Post](https://piazza.com/class/kskk56h2ohc7lg?cid=446)
-
 ## Handin
 
 When you're done, you'll hand in a .zip file containing `main.py`,
@@ -29,7 +27,7 @@ causes problems for us now that it's in a zip).
 ## Overview
 
 In this project, you'll build a website for sharing a dataset -- you
-get to pick the dataset (More on possible sources for data later)!
+get to pick the dataset (more on possible sources for data later).
 
 You'll use the flask framework for the site, which will have the
 following features: (1) multiple plots on the home page, (2) a page
@@ -60,12 +58,14 @@ The file should have between 10 and 1000 rows and between 3 and 15
 columns.  Feel free to drop rows/columns from your original data
 source if necessary.
 
-**Mandatory**: Leave a comment in your `main.py` about the source of
+**Mandatory**: leave a comment in your `main.py` about the source of
 your data.
 
-Two good places to check while looking for a dataset are
-[Kaggle](https://www.kaggle.com/datasets) and Google's [Dataset
-Search](https://datasetsearch.research.google.com/).
+If you're looking for dataset ideas, here are a few places to look:
+ - https://data-cityofmadison.opendata.arcgis.com
+ - https://data.dhsgis.wi.gov/
+ - https://www.kaggle.com/datasets
+ - https://datasetsearch.research.google.com
 
 ## Pages
 
@@ -139,9 +139,10 @@ Requirements:
 ## Browse
 
 The `browse.html` page should show an HTML table with all the data
-from `main.csv`.  Don't truncate the table (meaning we want to see all
-the rows).  Don't have any other tables on this page, so as not to
-confuse our tester.
+from `main.csv`.  Don't truncate the table no the page; we want to see
+all the rows from main.csv on the screen (it is OK to delete rows in
+main.csv if you want a shorter file).  Don't have any other tables on
+this page, so as not to confuse our tester.
 
 The page might look something like this:
 
@@ -220,7 +221,7 @@ def email():
     if re.match(r"????", email): # 1
         with open("emails.txt", "a") as f: # open file in append mode
             f.????(email + ????) # 2
-        return jsonify(f"thanks, you're subscriber number {n}!")
+        return jsonify(f"thanks, you're subscriber number {num_subscribed}!")
     return jsonify(????) # 3
 ```
 
@@ -229,8 +230,9 @@ Fill in the `????` parts in the above code so that it:
 2. writes each valid email address on its own line in `emails.txt`
 3. sternly warns the user if they entered an invalid email address to stop being so careless (you choose the wording)
 
-Also find a way to fill the variable `n` with the number of users that
-have subscribed so far, including the user that just got added.
+Also find a way to fill the variable `num_subscribed` with the number
+of users that have subscribed so far, including the user that just got
+added.
 
 **Note:** you can find information about `jsonify`
 [here](https://flask.palletsprojects.com/en/2.0.x/api/#flask.json.jsonify).
@@ -272,24 +274,27 @@ something to it or replace something in it.
 
 # Individual Part (25%)
 
-## Rate Limiting Json Page
+## Rate Limiting JSON Page
 
-JSON files are used to transmit structured data over network connection. 
-Please include a link on your main page that leads to 'https://your-ip:port/browse.json'
-that displays the json information. The json page should have rate limiting accesss to 
-protect against malicious bot attcks.
+JSON files are used to transmit structured data over network
+connection.  Add a resource at `https://your-ip:port/browse.json` that
+displays the same information as `browse.html`, but in JSON format
+(represent the DataFrame as a list of dicts, such that each dict
+corresponds to one row).
 
-**Hint 1** Pandas documentation for converting dataframes to json strings will be helpful.  
+Check the client IP with `request.remote_addr`.  Do not allow more
+than one request per minute from any one IP address.
 
-**Hint 2** We cover rate limiting at the end of March 9th lecture.  
+**Hint 1:** consider combining Flask's `jsonify` with Pandas `to_dict`: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_dict.html
+
+**Hint 2:** we cover rate limiting at the end of March 9th lecture.  
 
 ## Dashboard
 
 Implement a dashboard on your homepage showing at least 3 SVG images.
 The SVG images must correspond to at least 2 different flask routes,
 i.e., one route must be used at least twice with different query
-strings (resulting in different plots), similar to the [lecture
-reading](https://tyler.caraza-harter.com/cs320/f21/lec/22-dashboards/reading.html).
+strings (resulting in different plots).
 
 ### Requirements
 
