@@ -137,10 +137,6 @@ Now, in a terminal, connect via SSH, and run the following:
 python3 guess.py
 ```
 
-It should look something like this:
-
-<img src="run.png" width=400>
-
 Now, ask whoever you're doing the lab with to go to
 `http://your-ip:5000/plot.svg`, replacing `your-ip` with your VMs
 public IP address.
@@ -184,8 +180,8 @@ POSTs) when you first visit a page.
 
 ## POSTing with `requests`
 
-Remember the `requests` module we learned in CS 220/301?  We can use
-that to make guesses.  First import it:
+One way to make `POST` requests is with the `requests` module.  First
+import it:
 
 ```python
 import requests
