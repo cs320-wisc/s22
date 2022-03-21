@@ -1,5 +1,3 @@
-# DRAFT!  Don't start yet.
-
 # Project 4: Building a Data Website
 
 ## Corrections / Clarifications
