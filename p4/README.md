@@ -137,7 +137,7 @@ Requirements:
 ## Browse
 
 The `browse.html` page should show an HTML table with all the data
-from `main.csv`.  Don't truncate the table no the page; we want to see
+from `main.csv`.  Don't truncate the table on the page; we want to see
 all the rows from main.csv on the screen (it is OK to delete rows in
 main.csv if you want a shorter file).  Don't have any other tables on
 this page, so as not to confuse our tester.
