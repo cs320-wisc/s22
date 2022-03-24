@@ -2,7 +2,7 @@
 
 ## Corrections / Clarifications
 
-* none yet
+* added [P4 Tips and Tricks](https://mediaspace.wisc.edu/media/CS%20320%20-%20P4%20Tips%20and%20Tricks/1_wvd58pcp)
 
 ## Handin
 
@@ -36,6 +36,8 @@ button that only accepts valid email addresses, and (5) robots.txt and
 
 Your `.py` file may be short, perhaps <100 lines, but it will probably
 take a fair bit of time to get those lines right.
+
+Consider watching this [P4 Tips and Tricks](https://mediaspace.wisc.edu/media/CS%20320%20-%20P4%20Tips%20and%20Tricks/1_wvd58pcp) video, which Garrison kindly volunteered to record.
 
 ## Setup
 
