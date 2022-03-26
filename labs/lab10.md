@@ -6,4 +6,4 @@ Activities:
 
 2. Practice [regular expressions](./regex-smiles)
 
-3. Debugging Practice: inside your `s22` repo, there is a `labs/debug/7-nested-exception/divide.py`.  Try running it from the terminal, then fix the bugs.
+3. Debugging Practice: inside your `s22` repo, there is a `labs/debug/7-nested-except/divide.py`.  Try running it from the terminal, then fix the bugs.
