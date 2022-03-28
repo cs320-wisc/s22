@@ -32,7 +32,7 @@ You'll use the flask framework for the site, which will have the
 following features: (1) multiple plots on the home page, (2) a page
 for browsing through the table behind the plots, (3) a link to a
 donation page that is optimized via A/B testing, and (4) a subscribe
-button that only accepts valid email addresse.
+button that only accepts valid email addresses.
 
 Your `.py` file may be short, perhaps <100 lines, but it will probably
 take a fair bit of time to get those lines right.
