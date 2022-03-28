@@ -3,6 +3,7 @@
 ## Corrections / Clarifications
 
 * added [P4 Tips and Tricks](https://mediaspace.wisc.edu/media/CS%20320%20-%20P4%20Tips%20and%20Tricks/1_wvd58pcp)
+* removed robots.txt component
 
 ## Handin
 
@@ -30,9 +31,8 @@ get to pick the dataset (more on possible sources for data later).
 You'll use the flask framework for the site, which will have the
 following features: (1) multiple plots on the home page, (2) a page
 for browsing through the table behind the plots, (3) a link to a
-donation page that is optimized via A/B testing, (4) a subscribe
-button that only accepts valid email addresses, and (5) robots.txt and
-429 requests discouraging access to the browse page.
+donation page that is optimized via A/B testing, and (4) a subscribe
+button that only accepts valid email addresse.
 
 Your `.py` file may be short, perhaps <100 lines, but it will probably
 take a fair bit of time to get those lines right.
