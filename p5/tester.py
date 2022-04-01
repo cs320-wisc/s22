@@ -213,12 +213,12 @@ def main():
     print(result_notebook)
     print(result_module)
 
-    score = (result_notebook["score"] + result_module["score"]) / 2
+    score = result_notebook["score"] * 0.75 + result_module["score"] * 0.25
     result = {
         "score": score,
         "errors": result_notebook["errors"] + result_module["errors"],
         "missing": result_notebook["missing"],
-        "summary": f"Result: estimated score of {score}% as average of {result_module['score']}% (modules) and {result_notebook['score']}% (notebook), prior to grader deductions."
+        "summary": f"Result: estimated score of {score}% as weighted average of {result_module['score']}% (modules) and {result_notebook['score']}% (notebook), prior to grader deductions."
     }
 
     # save results

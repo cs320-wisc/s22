@@ -1,4 +1,4 @@
-import traceback
+import traceback, re
 import json
 from zipfile import ZipFile
 
@@ -10,6 +10,8 @@ filing_points = 0
 max_filing_points = 4410
 filing_percent = 67
 
+edgar_utils = None
+
 errors = []
 
 def compare_lists(actual, expected):
@@ -17,6 +19,8 @@ def compare_lists(actual, expected):
     first_error = None
 
     for i, (act, exp) in enumerate(zip(actual, expected)):
+        act = re.sub("\s+", " ", act)
+        exp = re.sub("\s+", " ", exp)
         match = act == exp
 
         if match:
@@ -217,12 +221,17 @@ def main():
 
     lookup_region_score = (lookup_region_points/max_lookup_region_points)*lookup_region_percent
     filing_score = (filing_points/max_filing_points)*filing_percent
+    score = lookup_region_score + filing_score
 
-    # return a summary
+    print(f"MODULE SCORE: {score}")
+    for err in errors:
+        print(err + "\n")
+
+    # print/return a summary
     return {
-        "score": lookup_region_score + filing_score,
+        "score": score,
         "errors": errors
     } 
 
 if __name__ == "__main__":
-    print(main())
+    main()
