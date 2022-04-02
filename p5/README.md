@@ -1,5 +1,3 @@
-# DRAFT: Don't start yet.
-
 # P5: EDGAR Web Logs
 
 In the US, public companies need to regularly file
@@ -133,7 +131,7 @@ Only count the requests made by users who were identified as crawlers (see the c
 
 ## Part 2: creating `edgar_utils.py` module
 
-This part is to be started during the [weekly lab](../labs/lab12.md).
+This part is to be started during the [weekly lab](../labs/lab11.md).
 Finish the `edgar_utils.py` module now if you didn't have enough time
 during the scheduled lab.
 
@@ -145,61 +143,117 @@ Use your `lookup_region` function and answer with a string.
 
 ### Q7: what fraction of IPs in each region are high-volume users?
 
-Consider IPs which accessed more than 1000 EDGAR resoures to be high-volume. This might indicate machines running automated scraping and analysis tasks. 
+Consider IPs which accessed more than 1000 EDGAR resoures to be
+high-volume. This might indicate machines running automated scraping
+and analysis tasks.
 
-Note that given the sampling done in the data, the true EDGAR usage of these machines is likely to be even heavier.
+Note that given the sampling done in the data, the true EDGAR usage of
+these machines is likely to be even heavier.
 
-Answer with a dictionary, where the keys are the regions and the values are the fraction (in floating point form) of IPs from that region classified as high-volume.
+Answer with a dictionary, where the keys are the regions and the
+values are the fraction (in floating point form) of IPs from that
+region classified as high-volume.
 
-### Q8: find the distribution of the state of incorporation of the companies.
+### Q8: what dates appear in the `850693/0000850693-07-000159/-index.htm` file of `docs.zip`?
 
-Use `Filing` to extract the data. Do not correct for repeated filings by the same company; answer with a dictionary with the count of each state (the state's abbreviation should be the key, and the count should be the value).
+Read the HTML from this file and use it to create a `Filing` object,
+from which you can access the `.dates` attribute.
 
-**Hint:** consider using `Counter` from `collections` (a part of the Python standard library).
+**Suggestion:** read every .htm or .html file in `docs.zip`, creating a
+`Filing` object from each.  Save the Filing objects in a dict, keyed
+by filename, so you don't need to re-read the data for each of the
+following questions.
 
-## Q9: find the number of times filings for each industry were accessed.
+### Q9: what is the distribution of states for the filings in `docs.zip`?
 
-Ignore rows in the logs which refer to pages not in `data.zip`. Answer with a dictionary, where the keys are the industry name and the values are the number of times the resources of that industry were accessed. 
+Answer with a dict, like the following:
 
-**Hint:** try finding the path corresponding to each row (as in Q4) and performing a join on a `Series`. This might work best if the index of the `Series` is the path of a file in "docs.zip" and the values are the corresponding industries.
+```
+{'CA': 91,
+ 'NY': 83,
+ 'TX': 64,
+ 'MA': 30,
+ 'PA': 25,
+ 'IL': 25,
+ ...
+}
+```
 
-Use an "inner" join -- this will only keep the rows with a matching path in the `Series` (i.e. those which are in "data.zip"). You can use the `DataFrame` `join` to perform the join; take a look at the documentation -- among other things, the default choice for the "on" argument might not be right.
+### Q10: what is the distribution of SIC codes for the filings in `docs.zip`?
 
-Alternatively, try writing an `apply` operation which finds the industry from a dictionary of `Filings`.
+Answer in the same format as in the previous question.  This time,
+skip any `None` values (`None` shouldn't be a key in the final dict).
+
+If you're curious, consider looking up the industry names for the top
+couple categories:
+https://www.sec.gov/corpfin/division-of-corporation-finance-standard-industrial-classification-sic-code-list
 
 # Individual Part (25%)
 
-## Part 4: geography
+## Part 4: combining logs with documents
 
-### Q10: how many requests were made in each hour?
+### Q11: what is the distribution of requests across industries?
 
-Use `pd.to_datetime` (the `hour` attributes of the converted timestamps may be useful) or string manipulation to process the `time` column. Answer with a dictionary, where the keys are integers from 0 to 23 representing the hour of the day, and the values are the number of requests made in that hour.
+For each request in the logs that has a corresponding filing in
+`docs.zip`, lookup the SIC (ignore rows in the logs which refer to
+pages not in `data.zip`).
 
-### Q11: find the distribution of the state of the headquarters of the companies.
+Answer with a dictionary, where the keys are the SIC and the values
+are the number of times the resources of that industry were accessed.
 
-Format as with Q8. You might notice that the results here are quite different: perhaps there are advantages to being a Delaware corporation...
+Expected output:
 
-### Q12: geographic plotting of headquarters
-
-The `locations.geojson` contains the positions
-of some of the headquarters of the corporations in the dataset; you'll need to join on 
-the data stored in this file to generate your plot. Take a look at the `geopandas.geocode` function;
-it was used to generate this location data. We have pre-computed the results as the services it relies
-on have rate limits, but when working with geographic information of your own, it will be a useful tool.
-
-Plot the locations of the headquarters in the continental US (without Alaska) as points, with the color of the point showing the number of times that company's filings were accessed in the logs. Note that requests which have the same "cik" and "accession" as a file in "docs.zip" to the same company (and hence filing); recall how the paths to the files in "docs.zip" were calculated.
-
-The shapefile containing the state boundaries can be found in "shapes/cb_2018_us_state_20m.shp".
-
-Use a Mercator projection; you can do so with the ESPG projection `3395`. You can look it up like this:
-
-```python
-import pyproj
-crs = pyproj.CRS.from_epsg("3395")
+```
+{2834: 984,
+ 1311: 550,
+ 1109189: 464,
+ 2836: 429,
+ 6022: 379,
+ 1000: 273,
+ 6211: 237,
+ 7371: 229,
+ 2860: 226,
+ 6021: 204}
 ```
 
-You can use `GeoDataFrame.to_crs` to apply a projection. Before projecting, you'll need to crop the data
-to the region occupied by the continental US. You can use the following boundaries:
+### Q12: how many requests were made in each hour?
+
+Use `pd.to_datetime` (the `hour` attributes of the converted
+timestamps may be useful) or string manipulation to process the `time`
+column. Answer with a dictionary, where the keys are integers from 0
+to 23 representing the hour of the day, and the values are the number
+of requests made in that hour.
+
+### Q13: what is the geographic overlap in interest between Australia, France, and Viet Nam?
+
+Answer with a Digraph like the following:
+
+<img src="digraph.png" width=400>
+
+In addition to a node for each of these three countries, there should
+be a node for each state having a filing accessed by somebody in one
+of these countries.
+
+An edge from a country to a state means somebody in that country
+looked at least one filing for a company in that state.
+
+### Q14: what are the most commonly seen street addresses?
+
+For each web request that has a corresponding filing, count each of
+the addresses for that filing.
+
+Show a dictionary of counts for all addresses appearing at least 225
+times.
+
+### Q15: geographic plotting of headquarters
+
+The `locations.geojson` contains the positions of some of the
+addresses in the dataset.  Plot this over the background map in
+"shapes/cb_2018_us_state_20m.shp"
+
+Additional requirements:
+
+* crop to the following lat/lon bounds:
 
 ```python
 west = -130
@@ -208,13 +262,21 @@ north = 50
 south = 20
 ```
 
-Use `Polygon` from `shapely.geometry` and the `GeoDataFrame` `clip` method to do the crop.
+* use a Mercator projection, "epsg:3395"
+* the color of each point should indicate how many times a request has accessed a filing with that address (consider adding data you computed in the previous question to a column in the GeoDataFrame you get from `locations.geojson`)
+* use the "plasma" colormap, with a colorbar
 
-The result should look like this:
+The result should look similar to this:
 
 ![](geo.svg)
 
-To match these results, remember to sort the geodataframe with the access counts by the column being plotted. This will plot the (more common) companies which are rarely accessed on the bottom, with the most-viewed companies on top. The "plasma" colormap is used.
+Depending on how you you approach the problem, the zorder of the
+scatter points may be different -- this is not a problem.
+
+Note, we used `geopandas.geocode` to find the locations for each address in
+`locations.geojson`.  This will generally be useful to you on other
+projects, but we're providing you the pre-computed `locations.geojson`
+here so your code runs faster.
 
 # Conclusion
 

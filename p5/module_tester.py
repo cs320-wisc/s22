@@ -205,6 +205,8 @@ def run_test(test):
 def main():
     global edgar_utils, errors
 
+    print("tester to be released soon -- run 'git pull' to check for updates")
+
     # import modules that are here
     try:
         import edgar_utils as tmp
