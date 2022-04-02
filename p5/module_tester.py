@@ -1,4 +1,4 @@
-import traceback, re
+import traceback, re, sys
 import json
 from zipfile import ZipFile
 
@@ -206,6 +206,7 @@ def main():
     global edgar_utils, errors
 
     print("tester to be released soon -- run 'git pull' to check for updates")
+    sys.exit(1)
 
     # import modules that are here
     try:

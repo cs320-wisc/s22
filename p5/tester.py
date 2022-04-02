@@ -193,7 +193,8 @@ def compare(expected_csv, actual_csv):
 # SOME_NAME.csv is compared to SOME_NAME-key.csv.
 def main():
     print("tester to be released soon -- run 'git pull' to check for updates")
-    
+    sys.exit(1)
+
     if len(sys.argv) == 1 or len(sys.argv) >= 4:
         print("Usage: python3 tester.py <notebook.ipynb> [answer_key]")
         return
