@@ -10,9 +10,9 @@ Corrections will regularly be added to this repo. Make sure to run `git pull` be
 - [P2](./p2)
 - [P3](./p3)
 - [P4](./p4)
+- [P5](./p5)
 
 <!---
-- [P5](./p5)
 - [P6](./p6)
 - [P7](./p7)
 --->
