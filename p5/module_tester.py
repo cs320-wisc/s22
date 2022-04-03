@@ -2,26 +2,45 @@ import traceback, re, sys
 import json
 from zipfile import ZipFile
 
+with open("expected_filings.json") as f:
+    expected_filings = json.load(f)
+
 lookup_region_points = 0
 max_lookup_region_points = 33
 lookup_region_percent = 33
 
 filing_points = 0
-max_filing_points = 4410
+max_filing_points = sum(len(v) for v in expected_filings.values())
 filing_percent = 67
 
 edgar_utils = None
 
 errors = []
 
+
+cleanup_whitespace = lambda s: re.sub("\s+", " ", s) if type(s) is str else s
+
+def process(extracted_data):
+   if type(extracted_data) is list: 
+      return [cleanup_whitespace(item) for item in extracted_data] 
+
+   return cleanup_whitespace(extracted_data)
+
+
 def compare_lists(actual, expected):
     score = 0
     first_error = None
 
     for i, (act, exp) in enumerate(zip(actual, expected)):
-        act = re.sub("\s+", " ", act)
-        exp = re.sub("\s+", " ", exp)
-        match = act == exp
+        act = process(act)
+        exp = process(exp)
+
+        if exp is None:
+            match = act is None
+        elif type(exp) is list:
+            match = set(act) == set(exp)
+        else:
+            match = act == exp
 
         if match:
             score += 1
@@ -141,8 +160,17 @@ def lookup_region_test():
 
     lookup_region_points += score
 
-def test_filing_attribute(filings, expected, attribute):
+def test_filing_attribute(filings, expected, attr):
     global filing_points, errors
+
+    if attr.endswith("()"):
+        attribute = attr[:-2]
+        function = True
+    else:
+        attribute = attr
+        function = False
+
+    call_if_function = lambda x: x() if function else x
 
     # check if the regex for attribute has been implemented yet
     first_filing = next(iter(filings.values()))
@@ -151,7 +179,7 @@ def test_filing_attribute(filings, expected, attribute):
         expected_values = expected.values()
 
         actual_values = (
-            getattr(filings[k], attribute)
+            call_if_function(getattr(filings[k], attribute))
             for k in expected_keys
         )
 
@@ -161,13 +189,17 @@ def test_filing_attribute(filings, expected, attribute):
             i, actual, expected = first_error
 
             errors.append(
-                f"Error found in Filing (path {list(expected_keys)[i]}): actual value of {attribute} was {actual}" \
+                f"Error found in Filing (path {list(expected_keys)[i]}): actual value of {attr} was {actual}" \
                     f" but expected {expected}"
             )
 
         filing_points += score
     else:
-        errors.append(f"Filing test: regex for {attribute} not yet implemented.")
+        errors.append(f"Filing test: {attr} not yet implemented.")
+
+def read_filing(zf, filename):
+    with zf.open(filename) as f:
+        return str(f.read(), encoding="utf8")
 
 def filing_test():
     filings = {}
@@ -175,23 +207,23 @@ def filing_test():
     with ZipFile("docs.zip") as zf:
         for file in zf.filelist:
             if not file.is_dir():
-                filings[file.filename] = edgar_utils.Filing(file.filename)
+                filename = file.filename
 
-    with open("expected_filings.json") as f:
-        expected = json.load(f)
+                filings[filename] = edgar_utils.Filing(read_filing(zf, filename))
 
     attributes =  [
-        "filing_date",
-        "accepted_date",
-        "state_of_incorporation",
-        "company_name",
-        "industry",
-        "address",
-        "state_of_headquarters"
+        "dates",
+        "sic",
+        "addresses",
+        "state()",
     ]
 
     for attribute in attributes:
-        test_filing_attribute(filings, expected[attribute], attribute)
+        test_filing_attribute(
+            filings,
+            expected_filings[attribute],
+            attribute
+        )
 
 def run_test(test):
     global errors
@@ -204,9 +236,6 @@ def run_test(test):
 
 def main():
     global edgar_utils, errors
-
-    print("tester to be released soon -- run 'git pull' to check for updates")
-    sys.exit(1)
 
     # import modules that are here
     try:

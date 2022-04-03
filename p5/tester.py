@@ -1,5 +1,6 @@
 import os, sys, json, csv, re, math
 import matplotlib.pyplot as plt
+import graphviz
 from collections import namedtuple
 import module_tester
 
@@ -47,6 +48,10 @@ def read_code_cells(ipynb, default_notes={}):
                 output_str = "".join(outputs[0]["data"]["text/plain"]).strip()
                 if output_str.startswith("<Figure"):
                     output_str = "plt.Figure()"
+
+                if output_str.startswith("<") and "Digraph" in output_str:
+                    output_str = "graphviz.graphs.Digraph()"
+
                 if output_str == "nan":
                     output_str = 'float("nan")'
             else:
@@ -120,7 +125,7 @@ def compare_dict(expected, actual, config={}):
 
     return expected == actual
 
-def compare_figure(expected, actual, config={}):
+def compare_vis(expected, actual, config={}):
     return type(expected) == type(actual)
 
 compare_fns = {
@@ -133,7 +138,8 @@ compare_fns = {
     "set": compare_set,
     "dict": compare_dict,
     "type": compare_type,
-    "Figure": compare_figure
+    "Figure": compare_vis,
+    "Digraph": compare_vis,
 }
 
 def parse_question_config(c):
@@ -192,9 +198,6 @@ def compare(expected_csv, actual_csv):
 # if an answer key file is specified, SOME_NAME.csv is compared to that.  If not,
 # SOME_NAME.csv is compared to SOME_NAME-key.csv.
 def main():
-    print("tester to be released soon -- run 'git pull' to check for updates")
-    sys.exit(1)
-
     if len(sys.argv) == 1 or len(sys.argv) >= 4:
         print("Usage: python3 tester.py <notebook.ipynb> [answer_key]")
         return
