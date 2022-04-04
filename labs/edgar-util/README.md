@@ -36,10 +36,12 @@ print(ipaddr)
 
 ### Exercise 2: integer IPs
 
+Note if you haven't installed netaddr yet from p5, please install it from the command line via: 
+``` pip3 install netaddr```
+
 IP addresses are commonly represented as four-part numbers, like
 "34.67.75.25".  To convert an address like this to an integer, you can
-use the following:
-
+use the following::
 ```python
 import netaddr
 int(netaddr.IPAddress("34.67.75.25"))
