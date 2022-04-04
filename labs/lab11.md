@@ -1,5 +1,3 @@
-# DRAFT!  Don't start yet.
-
 # Lab 11
 
 Activities:
