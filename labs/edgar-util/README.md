@@ -25,13 +25,12 @@ anonymization.
 
 For some calculations, we need only digits, so we'll replace any
 letters with "0".  Complete the following regex code to get back
-"101.1.1.abc":
+"101.1.1.000":
 
 ```python
 import re
 ipaddr = "101.1.1.abc"
-re.sub(????, ????, ipaddr)
-print(ipaddr)
+print(re.sub(????, ????, ipaddr))
 ```
 
 ### Exercise 2: integer IPs
