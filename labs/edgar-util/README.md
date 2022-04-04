@@ -30,7 +30,7 @@ letters with "0".  Complete the following regex code to get back
 ```python
 import re
 ipaddr = "101.1.1.abc"
-print(re.sub(????, ????, ipaddr))
+re.sub(????, ????, ipaddr)
 ```
 
 ### Exercise 2: integer IPs
