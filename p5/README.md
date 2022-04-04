@@ -202,7 +202,7 @@ https://www.sec.gov/corpfin/division-of-corporation-finance-standard-industrial-
 
 For each request in the logs that has a corresponding filing in
 `docs.zip`, lookup the SIC (ignore rows in the logs which refer to
-pages not in `data.zip`).
+pages not in `docs.zip`).
 
 Answer with a dictionary, where the keys are the SIC and the values
 are the number of times the resources of that industry were accessed.
