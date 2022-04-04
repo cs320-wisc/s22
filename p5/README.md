@@ -1,5 +1,11 @@
 # P5: EDGAR Web Logs
 
+## Corrections/Clarifications
+
+* released tester.py and module_tester.py
+
+## Overview
+
 In the US, public companies need to regularly file
 various statements and reports to the SEC's (Securities and Exchange
 Commission) EDGAR database.  EDGAR data is publicly available online;

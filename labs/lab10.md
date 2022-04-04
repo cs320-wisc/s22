@@ -2,7 +2,7 @@
 
 Activities:
 
-1. Share with your group: *what is the best piece of advice you’ve ever been given?*
+1. Share with your group: *what is the best piece of advice you've ever been given?*
 
 2. Practice [regular expressions](./regex-smiles)
 

@@ -1,9 +1,10 @@
 # Geographic Maps
 
-We'll be talking more about geopandas in the next lecture, but for
-now, we'll guide you through some steps to make a map.
+Let's say you want to plot a map of Europe, showing major cities and
+shading countries by popluation.
 
-If you haven't already, you need to install some things to make maps:
+If you haven't already, you first need to install some things to make
+maps:
 
 ```
 pip3 install --upgrade pip
@@ -11,8 +12,7 @@ pip3 install geopandas shapely descartes geopy
 sudo apt install -y python3-rtree
 ```
 
-Let's say you want to plot a map of Europe, showing major cities and
-shading countries by popluation.  Paste+run the following:
+Paste+run the following:
 
 ```python
 import geopandas
