@@ -123,7 +123,7 @@ Count any request with a status code greater than or equal to 400 as having resu
 
 ### Q4: what is the most frequently accessed file?
 
-Answer with a string formatted like so: "cik/accession/extention" (these are the names of columns in "rows.csv".
+Answer with a string formatted like so: "cik/accession/extention" (these are the names of columns in "rows.csv").
 
 ### Q5: how many requests were made by automated crawlers?
 
