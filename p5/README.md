@@ -4,6 +4,7 @@
 
 * Apr 3: released tester.py and module_tester.py
 * Apr 4: clarified what size we're measuring for q1
+* Apr 5: clarified requirements for SIC code regex (see [corresponding lab page](https://github.com/cs320-wisc/s22/tree/main/labs/edgar-util))
 
 ## Overview
 
