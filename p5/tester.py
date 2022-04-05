@@ -198,12 +198,12 @@ def compare(expected_csv, actual_csv):
 # if an answer key file is specified, SOME_NAME.csv is compared to that.  If not,
 # SOME_NAME.csv is compared to SOME_NAME-key.csv.
 def main():
-    if len(sys.argv) == 1 or len(sys.argv) >= 4:
-        print("Usage: python3 tester.py <notebook.ipynb> [answer_key]")
+    if len(sys.argv) >= 4:
+        print("Usage: python3 tester.py [notebook.ipynb] [answer_key]")
         return
 
     # dump results from this notebook to a summary .csv file
-    ipynb = sys.argv[1]
+    ipynb = sys.argv[1] if len(sys.argv) > 1 else "p5.ipynb"
     assert ipynb.endswith(".ipynb")
     actual_path = ipynb.replace(".ipynb", ".csv").replace(".json", ".csv")
     dump_results(ipynb, actual_path)

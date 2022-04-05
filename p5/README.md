@@ -2,7 +2,8 @@
 
 ## Corrections/Clarifications
 
-* released tester.py and module_tester.py
+* Apr 3: released tester.py and module_tester.py
+* Apr 4: clarified what size we're measuring for q1
 
 ## Overview
 
@@ -115,13 +116,16 @@ Answer these questions in `p5.ipynb`.
 
 ### Q1: what's the total size in bytes of the files requested?
 
-We want to count duplicates here; this gives us an estimate of the amount of network traffic handled by EDGAR (since this data is only a sample, the true value will be even larger). Answer with an integer.
+Look at the `size` column of the CSV in `server_log.zip`.  We want to
+count duplicates here; this gives us an estimate of the amount of
+network traffic handled by EDGAR (since this data is only a sample,
+the true value will be even larger). Answer with an integer.
 
 ### Q2: how many filings have been accessed by the top ten IPs?
 
 Answer with a dictionary, with the (anonymized) IP as key and the number of requests seen in the logs as the values. Each row in the logs corresponds to one request. Note that the anonymized IP addresses are consistent between requests.
 
-**Hint:** for this question and most of the others expecting dictionary output, it might be easiest to use Pandas operations to process the data into a `Series` and to use the `to_dict()` method. Consider using tools like `groupby`, `apply`, and aggregation methods like `count()`.
+**Hint:** for this question and most of the others expecting dictionary output, it might be easiest to use Pandas operations to process the data into a `Series` and to use the `to_dict()` method. Consider using tools like `groupby`, `apply`, and aggregation methods like `size()`.
 
 ### Q3: what fraction of the time do errors occur?
 
@@ -202,7 +206,7 @@ https://www.sec.gov/corpfin/division-of-corporation-finance-standard-industrial-
 
 For each request in the logs that has a corresponding filing in
 `docs.zip`, lookup the SIC (ignore rows in the logs which refer to
-pages not in `data.zip`).
+pages not in `docs.zip`).
 
 Answer with a dictionary, where the keys are the SIC and the values
 are the number of times the resources of that industry were accessed.
