@@ -2,7 +2,8 @@
 
 ## Corrections/Clarifications
 
-* released tester.py and module_tester.py
+* Apr 3: released tester.py and module_tester.py
+* Apr 4: clarified what size we're measuring for q1
 
 ## Overview
 
@@ -115,7 +116,10 @@ Answer these questions in `p5.ipynb`.
 
 ### Q1: what's the total size in bytes of the files requested?
 
-We want to count duplicates here; this gives us an estimate of the amount of network traffic handled by EDGAR (since this data is only a sample, the true value will be even larger). Answer with an integer.
+Look at the `size` column of the CSV in `server_log.zip`.  We want to
+count duplicates here; this gives us an estimate of the amount of
+network traffic handled by EDGAR (since this data is only a sample,
+the true value will be even larger). Answer with an integer.
 
 ### Q2: how many filings have been accessed by the top ten IPs?
 
