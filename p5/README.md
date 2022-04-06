@@ -4,7 +4,8 @@
 
 * Apr 3: released tester.py and module_tester.py
 * Apr 4: clarified what size we're measuring for q1
-* Apr 5: clarified requirements for SIC code regex (see [corresponding lab page](https://github.com/cs320-wisc/s22/tree/main/labs/edgar-util))
+* Apr 5: clarified requirements for SIC code regex (see [corresponding lab page](https://github.com/cs320-wisc/s22/tree/main/labs/edgar-util)) and updated `module_tester.py` expected output
+* Apr 6: updated `tester.py` expected output, updated Q11 expected output below
 
 ## Overview
 
@@ -216,16 +217,14 @@ Expected output:
 
 ```
 {2834: 984,
+ 1389: 656,
  1311: 550,
- 1109189: 464,
  2836: 429,
  6022: 379,
  1000: 273,
- 6211: 237,
- 7371: 229,
- 2860: 226,
- 6021: 204}
-```
+ ...
+ }
+ ```
 
 ### Q12: how many requests were made in each hour?
 
