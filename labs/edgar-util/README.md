@@ -385,5 +385,5 @@ useful here.
 
 * `dates` should be a list of dates in the `YYYY-MM-DD` format that appear in the HTML (only count years starting as 19XX or 20XX)
 * `sic` should be an `int` indicating the Standard Industrial Classification.  It should be `None` if this doesn't appear.
-* `addresses` should be a list of addresses found in the HTML.  Each address will contain the address lines separated by newlines, but otherwise there shouldn't be unnecessary whitespace.
+* `addresses` should be a list of addresses found in the HTML.  Each address will contain the address lines separated by newlines, but otherwise there shouldn't be unnecessary whitespace.(i.e. `['437 MADISON AVENUE\n38TH FLOOR\nNEW YORK NY 10022','155 NORTH WACKER DRIVE\nSUITE 4600\nCHICAGO IL 60606']` ) 
 * `state()` should loop over the addresses.  If it finds one that contains two capital letters followed by 5 digits (for example, "WI 53706"), it should return what appears to be a state abbreviation (for example "WI").  You don't need to check that the abbreviation is a valid state.  If nothing that looks like a state abbreviation appears, return `None`.
