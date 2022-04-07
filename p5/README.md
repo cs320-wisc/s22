@@ -6,6 +6,7 @@
 * Apr 4: clarified what size we're measuring for q1
 * Apr 5: clarified requirements for SIC code regex (see [corresponding lab page](https://github.com/cs320-wisc/s22/tree/main/labs/edgar-util)) and updated `module_tester.py` expected output
 * Apr 6: updated `tester.py` expected output, updated Q11 expected output below
+* Apr 7: clarified wording, added Q7 example
 
 ## Overview
 
@@ -129,7 +130,7 @@ Answer with a dictionary, with the (anonymized) IP as key and the number of requ
 
 **Hint:** for this question and most of the others expecting dictionary output, it might be easiest to use Pandas operations to process the data into a `Series` and to use the `to_dict()` method. Consider using tools like `groupby`, `apply`, and aggregation methods like `size()`.
 
-### Q3: what fraction of the time do errors occur?
+### Q3: what fraction of the requests had errors?
 
 Count any request with a status code greater than or equal to 400 as having resulted in an error. Answer with a floating point number.
 
@@ -165,6 +166,23 @@ these machines is likely to be even heavier.
 Answer with a dictionary, where the keys are the regions and the
 values are the fraction (in floating point form) of IPs from that
 region classified as high-volume.
+
+**Example:**
+
+Say "United States of America" has four IPs:
+* 1.1.1.1 appears 1200 times in the logs
+* 2.2.2.2 appears 900 times in the logs
+* 3.3.3.3 appears 5 times in the logs
+* 4.4.4.4 appears 234 times in the logs
+
+This means that 1/4 of the IPs in the US are high volume, so there should be an entry like this:
+
+```
+{
+    "United States of America": 0.25,
+    ...
+}
+```
 
 ### Q8: what dates appear in the `850693/0000850693-07-000159/-index.htm` file of `docs.zip`?
 
