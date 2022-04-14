@@ -7,6 +7,7 @@
 * Apr 5: clarified requirements for SIC code regex (see [corresponding lab page](https://github.com/cs320-wisc/s22/tree/main/labs/edgar-util)) and updated `module_tester.py` expected output
 * Apr 6: updated `tester.py` expected output, updated Q11 expected output below
 * Apr 7: clarified wording, added Q7 example
+* Apr 14: note that by default reading inside a zip gives you bytes.  For your regex work, convert to a string using UTF-8 (like we have done for `check_output`).
 
 ## Overview
 
