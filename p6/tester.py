@@ -183,16 +183,14 @@ def compare(expected_csv, actual_csv):
         config = parse_question_config(expected["notes"])
         if "run" in config:
             exec(config["run"])
-        if qnum == 16:
-            if actual["value"] < expected["value"]:
-                err = f'Question {qnum}: expected higher r^2 value, but found {actual["value"]}'
-                result["errors"].append(err)
-            else:
-                passing = passing + 1.0
+
+        # TODO: this is a hardcoded special case just for P6
+        if qnum == 17:
+            print(f'scored {float(actual["value"])} ({float(expected["value"])} and above earns full credit on q17)')
+            points = 4.0*(float(actual["value"])/float(expected["value"]))
+            passing += min(points, 4)
             continue
-        if qnum == 18:
-            passing = passing + (3.0*(float(actual["value"])/float(expected["value"])))
-            continue
+
         if compare_fn(eval(expected["value"]), eval(actual["value"]), config):
             passing = passing + 1.0
         else:
