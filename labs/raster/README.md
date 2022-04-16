@@ -19,9 +19,9 @@ First, install some packages:
 pip3 install rasterio Pillow
 ```
 
-P6 includes an `f21/p6/land.zip` dataset.  Let's open it (this assumes
-your notebook is in `f21/lab11` -- you may need to modify the path to
-`land.zip` if you're in a different directory):
+P6 includes a `land.zip` dataset.  Let's open it (this assumes
+your lab notebook is in the `p6` directory -- you may need to modify the path to
+`land.zip` if you're elsewhere):
 
 ```python
 import rasterio
