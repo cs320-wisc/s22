@@ -8,11 +8,13 @@
 
 ## Overview
 
-We will be making predictions about census data for Wisconsin using regression models. You'll need to extract data from four files to construct DataFrames suitable for training during this project:
+We will be making predictions about census data for Wisconsin using
+regression models. You'll need to extract data from four files to
+construct DataFrames suitable for training during this project:
 
-* `counties.geojson` - population and boundaries of each county
-* `tracts.geojson` - boundaries of each tract
-* `counties_tracts.db` - details about housing units per tract (counties are sub-divided into tracts)
+* `counties.geojson` - population and boundaries of each county in Wisconsin
+* `tracts.geojson` - boundaries of each census tract (counties are subdivided into tracts)
+* `counties_tracts.db` - details about housing units per tract
 * `land.zip` - details about land use (farm, forest, developed, etc.)
 
 # Group Part (75%)
@@ -31,48 +33,66 @@ Read `counties.geojson` into a GeoDataFrame and use it to calculate the number o
 
 ### Q2: What is the population of each county in WI?
 
-Create a geopandas plot that has a legend using the population from the `POP100` column.
+Create a geopandas plot that has a legend using the population from
+the `POP100` column.
 
 <img src="q2.png" width="500">
 
+The US Census Bureau does some surveys that attempt to sample the
+population and others (like the decennial one) that attempt to count
+everybody.  "POP100" means this is there attempt to count 100% of the
+population (no sampling).  Similarly, "HU100" is a 100% count of
+housing units.
 
-### Dataset 1
+### Feature 1: `AREALAND`
 
-Let's construct a dataset we can use to train a model.
+Let's add an `AREALAND` column to your GeoDataFrame of counties so
+that we can try to predict population based on area.
 
-Open `counties_tracts.db` by [connecting it to a DB using sqlite3](https://docs.python.org/3/library/sqlite3.html)
-then [using `read_sql` on the DB connection to execute a query](https://pandas.pydata.org/docs/reference/api/pandas.read_sql.html).
+You can get the area from the `counties_tracts.db` database.  Open it using [sqlite3](https://docs.python.org/3/library/sqlite3.html)
+then use [read_sql](https://pandas.pydata.org/docs/reference/api/pandas.read_sql.html) on the DB connection to execute a query.
 A great first query for an unfamiliar DB is `pd.read_sql("""SELECT * FROM sqlite_master""", conn)`.  That will show you all the tables the DB has. Try running `pd.read_sql("""SELECT * FROM ????""", conn)` for each table name to see what all the tables look like.
 
-Add a column to your GeoDataFrame specifying `AREALAND` for each county from the `counties_tracts.db` database.
+Use data from the database to add an `AREALAND` column to your
+GeoDataFrame.  The order of rows in your GeoDataFrame should not
+change as part of this operation.
 
-After you've added `AREALAND` to your GeoDataFrame, use `train_test_split` from `sklearn` to split the rows into `train` and `test` datasets.
+After you've added `AREALAND` to your GeoDataFrame, use
+`train_test_split` from `sklearn` to split the rows into `train` and
+`test` datasets.
 
-By default, `train_test_split` randomly shuffles the data differently each time it runs.  Pass `random_state=320` as a parameter so that it shuffles the same way as it did for us (so that you get the answers the tester expects). Pass `test_size=0.25` to make the test set be one quarter of the original data and the other three quarters remaining in the training set.
+* by default, `train_test_split` randomly shuffles the data differently each time it runs.  Pass `random_state=320` as a parameter so that it shuffles the same way as it did for us (so that you get the answers the tester expects).
+* Pass `test_size=0.25` to make the test set be one quarter of the original data and the other three quarters remaining in the training set.
 
 ### Q3: What are the counties in the test dataset?
 
 Answer with a list, in the same order as the names appear in the DataFrame.
 
-### Q4: How much variance in the `POP100` can a `LinearRegression` model predict based only on `AREALAND`?
+### Q4: How much variance in the `POP100` can a `LinearRegression` model explain based only on `AREALAND`?
 
 `fit` the model to your `train` dataset and `score` it on your `test` dataset.
 
 ### Q5: What is the predicted population of a county with 500 square miles of area, according to the model?
 
-Consult the [Census documentation](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_attribute_glossary.html) to learn what units the data is in, and do any conversions necessary to answer the question:
-
-You can assume there are exactly 2.59 square kilometers per square mile for the purposes of your calculation.
+Consult the [Census documentation](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_attribute_glossary.html) to learn what units the data is in, and do any conversions necessary to answer the question.  Assume there are exactly 2.59 square kilometers per square mile for the purposes of your calculation.
 
 ## Model 2: Housing Units to Population
 
-### Dataset 2
+### Feature 2: `HU100` (housing units)
 
-Now open the `tracts` table and find the `HU100` column. Add the `HU100` column to your dataset the same way you constructed Dataset 1, with `AREALAND`. Now, have an `HU100` column that specifies housing units per county.
+Look at the `tracts` table inside `counties_tracts.db` and find the
+`HU100` column. Add a `HU100` column to your GeoDataFrame of counties,
+similar to how you added `AREALAND`.
 
-The query to get housing units per county is complicated!  County names are in the `counties` table and `HU100` values are in the `tracts` table.  Fortunately, both tables have a `COUNTY` column you can use to combine. Make sure to get the total number of housing units for each county from the `tracts` table by summing the housing units in each tract of the county.
+**The query to get housing units per county is complicated than the
+one for AREALAND**.  County names are in the `counties` table and
+`HU100` values are in the `tracts` table.  Fortunately, both tables
+have a `COUNTY` column you can use to combine. Make sure to get the
+total number of housing units for each county from the `tracts` table
+by summing the housing units in each tract of the county.
 
-Split the dataset into a train and test set the same way you did for dataset 1.
+Split your updated GeoDataFrame into a train and test set, the same
+way you did previously.
 
 ### Q6: What are the counties in the test dataset?
 
@@ -82,7 +102,7 @@ Answer with a list, in the same order as the names appear in the DataFrame.
 
 Answer with a `dict`.
 
-### Q8: How much variance in the `POP100` can a `LinearRegression` model predict based only on `HU100`?
+### Q8: How much variance in the `POP100` can a `LinearRegression` model explain based only on `HU100`?
 
 Answer with the average of 5 scores [produced by `cross_val_score` on the training data](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html).
 
@@ -129,7 +149,7 @@ fig, ax = plt.subplots(figsize=(12,12))
 ax.imshow(????, vmin=0, vmax=255)
 ```
 
-You can get the matrix for Milwaukee County using `rasterio` and using the geometry in the data frame from `counties.geojson`.
+You can get the matrix for Milwaukee County using `rasterio` and using the geometry in the DataFrame from `counties.geojson`.
 
 You can also define a custom color map ([corresponding to the legend](https://www.mrlc.gov/data/legends/national-land-cover-database-2019-nlcd2019-legend) and pass `cmap=custom_cmap` to `imshow` to use it.
 
@@ -171,7 +191,9 @@ Be careful!  Not everything in the matrix is Milwaukee County -- be sure not to 
 
 ### Q15: What is the Relationship Between POP100 and ________________?
 
-Create a DataFrame called `land_df` where the index contains county names (in the same order they appear in `counties.geojson`) and four columns:
+Create a DataFrame called `land_df` where the index contains county
+names (in the same order they appear in `counties.geojson`) and the
+following columns:
 
 * developed_open
 * developed_low
@@ -179,16 +201,27 @@ Create a DataFrame called `land_df` where the index contains county names (in th
 * developed_high
 * POP100
 
-The first four columns correspond to land cover codes 21-24 ([refer to the legend](https://www.mrlc.gov/data/legends/national-land-cover-database-2019-nlcd2019-legend)) and should give the number of pixels in a county of the specified type. The geometry in the data frame can be found in `counties.geojson`. The 5th column, `POP100` should also get pulled in from `counties.geojson`.
+The first four columns correspond to land cover codes 21-24 ([refer to
+the
+legend](https://www.mrlc.gov/data/legends/national-land-cover-database-2019-nlcd2019-legend))
+and should give the number of pixels in a county of the specified
+type. The geometry in the DataFrame can be found in
+`counties.geojson`. The 5th column, `POP100` should also get pulled in
+from `counties.geojson`.
 
-Plot a scatterplot with `POP100` on the y-axis and one of the development columns of your choosing on the x-axis.
+Plot a scatterplot with `POP100` on the y-axis and one of the
+development columns of your choosing on the x-axis.
 
 # Individual Part (25%)
 
 You have to do the remainder of this project on your own.  Do not
 discuss with anybody except 320 staff (mentors, TAs, instructor).
 
-Use `tracts.geojson` to load the census tracts data. Use this geodata to create a database of the land cover data from your `land_df` data frame. Land use [corresponds to the legend](https://www.mrlc.gov/data/legends/national-land-cover-database-2019-nlcd2019-legend) and is converted to a Python dictionary for your convenience:
+Use `tracts.geojson` to load the census tracts data. Use this geodata
+to create a dataset of the land cover data from your `land_df`
+DataFrame. Land use [corresponds to the
+legend](https://www.mrlc.gov/data/legends/national-land-cover-database-2019-nlcd2019-legend)
+and is converted to a Python dictionary for your convenience:
 
 ```
 land_use = {"open_water": 11,

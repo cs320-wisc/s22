@@ -6,6 +6,6 @@ Activities:
 
 2. learn how to query a [SQL database](./sql-join) to get a pandas DataFrame
 
-3. learn how to read [raster data](./raster) to a numpy array
+3. learn how to [count cells](./counting-cells) with specific values inside a numpy array
 
-4. learn how to [count cells](./counting-cells) with specific values inside a numpy array
+4. learn how to read [raster data](./raster) to a numpy array
