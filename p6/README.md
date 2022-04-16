@@ -1,5 +1,3 @@
-# DRAFT!  Don't start yet.
-
 # Project 6: Regression Models
 
 ## Corrections/Clarifications
@@ -16,6 +14,11 @@ construct DataFrames suitable for training during this project:
 * `tracts.geojson` - boundaries of each census tract (counties are subdivided into tracts)
 * `counties_tracts.db` - details about housing units per tract
 * `land.zip` - details about land use (farm, forest, developed, etc.)
+
+## Submission
+
+Do all your work in a single p6.ipynb notebook file, and hand it in
+when you're done.
 
 # Group Part (75%)
 
@@ -78,13 +81,15 @@ Consult the [Census documentation](https://tigerweb.geo.census.gov/tigerwebmain/
 
 ## Model 2: Housing Units to Population
 
+You'll need to wait to do the lab before continuing: https://github.com/cs320-wisc/s22/blob/main/labs/lab13.md
+
 ### Feature 2: `HU100` (housing units)
 
 Look at the `tracts` table inside `counties_tracts.db` and find the
 `HU100` column. Add a `HU100` column to your GeoDataFrame of counties,
 similar to how you added `AREALAND`.
 
-**The query to get housing units per county is complicated than the
+**The query to get housing units per county is more complicated than the
 one for AREALAND**.  County names are in the `counties` table and
 `HU100` values are in the `tracts` table.  Fortunately, both tables
 have a `COUNTY` column you can use to combine. Make sure to get the
@@ -187,43 +192,14 @@ custom_cmap = ListedColormap(c)
 
 ### Q14: What portion of Milwaukee County is "Open Water"?
 
-Be careful!  Not everything in the matrix is Milwaukee County -- be sure not to count the cells with value 0.
+Be careful!  Not everything in the matrix is Milwaukee County -- be
+sure not to count the cells with value 0.
 
-### Q15: What is the Relationship Between POP100 and ________________?
+You can lookup the numeric code for "Open Water" and other types here: https://www.mrlc.gov/data/legends/national-land-cover-database-2019-nlcd2019-legend
 
-Create a DataFrame called `land_df` where the index contains county
-names (in the same order they appear in `counties.geojson`) and the
-following columns:
+Or, for your convenience, we typed the info from that page into a Python dictionary:
 
-* developed_open
-* developed_low
-* developed_med
-* developed_high
-* POP100
-
-The first four columns correspond to land cover codes 21-24 ([refer to
-the
-legend](https://www.mrlc.gov/data/legends/national-land-cover-database-2019-nlcd2019-legend))
-and should give the number of pixels in a county of the specified
-type. The geometry in the DataFrame can be found in
-`counties.geojson`. The 5th column, `POP100` should also get pulled in
-from `counties.geojson`.
-
-Plot a scatterplot with `POP100` on the y-axis and one of the
-development columns of your choosing on the x-axis.
-
-# Individual Part (25%)
-
-You have to do the remainder of this project on your own.  Do not
-discuss with anybody except 320 staff (mentors, TAs, instructor).
-
-Use `tracts.geojson` to load the census tracts data. Use this geodata
-to create a dataset of the land cover data from your `land_df`
-DataFrame. Land use [corresponds to the
-legend](https://www.mrlc.gov/data/legends/national-land-cover-database-2019-nlcd2019-legend)
-and is converted to a Python dictionary for your convenience:
-
-```
+```python
 land_use = {"open_water": 11,
             "ice_snow": 12,
             "developed_open": 21,
@@ -246,22 +222,45 @@ land_use = {"open_water": 11,
             "herbacious_wetlands": 95}
 ```
 
-Split the data into train and test sets as before using `random_state=320` for consistency.
+### Q15: What is the Relationship Between POP100 and ________________?
 
-### Model Comparison
+Replace the blank with a cell count for a land type of your choosing.
+Show a scatter plot where each point corresponds to a county.
 
-Fit a linear model to predict how much high density development will be in each area based on 3 other variables of your choice. You may choose any three features to create the _most predictive_ model. You may use any techniques from the class to develop your model.
+For example, the following shows the relation between pasture and
+population (you may NOT reuse pasture -- choose a different type for
+your plot):
 
-### Q16 r^2 Analysis
+<img src="q15.png" width="500">
 
-Calculate your model's coefficient of determination (r^2) to determine how well your model performs at the prediction.
+# Individual Part (25%)
 
-### Q17 Comparison Plot
+You have to do the remainder of this project on your own.  Do not
+discuss with anybody except 320 staff (mentors, TAs, instructor).
 
-Create a polynomial model of the same features. Compute the five fold cross-validation score of your two models. How consistent are the scores of each model across different folds? Plot the explained variance of each in a single plot to compare their performance. Answer with a plot that has a bar for each model, with error bars indicating standard deviation of scores.
+For this part, you'll try to predict population an a **per-census
+tract** basis (in contrast to our preceding per-county analysis),
+using features calculated from the land use data.  You have
+flexibility around what features to use and what models to train, but
+we have a few requirements:
 
-<img src="q17.png" width="400">
+1. start with a GeoDataFrame dataset loaded from `tracts.geojson`
+2. add one or more feature columns to that dataset based on raster data `land.zip` (you can decide what the columns are, so think about what land types might correspond to population)
+3. split your GeoDataFrame into train/test using `random_state=320`
+4. construct at least 2 regression models.  They should differ in terms of (a) what columns they use and/or (b) whether or not they're preceded by transformers in an sklearn Pipeline
+5. perform cross validation on both your models over your training dataset
+6. write a comment recommending which model you recommend for this prediction task.  Factors you might consider are (a) high scores, (b) little variance across scores, (c) model simplicity, and (d) anything else you think is important.
+7. fit your recommended model to the entire training dataset and score it against the test dataset
 
-### Q18 Cross Validation
+### Q16: How do the models you selected compare under cross validation?
 
-Return the 5-fold cross validation score of your most predictive model. The score of your model determines your score on this section.
+Answer with a bar plot showing average scores and error bars showing the standard deviation of scores.
+
+You can search for "How can we compare models?" in the lecture examples:
+
+https://github.com/cs320-wisc/s22/blob/main/lec/29%20Regression%201/lec1.ipynb
+
+### Q17: How does your recommended model score against the test dataset?
+
+Remember that you need to write a comment that reasonably justifies
+why you're recommending this specific model over the others you tried.

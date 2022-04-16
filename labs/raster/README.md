@@ -52,6 +52,10 @@ dane.plot()
 
 You should see a rough outline of Dane County.
 
+**NOTE: do not make requests to TIGERweb as part of P6.  We have
+  already done so and saved the results in a geojson file we
+  provide.**
+
 We can use that outline as a *mask* on the raster data to get a numpy
 array of land use.  A mask identifies specific cells in a matrix that
 matter to us (note that we need to convert our geopandas data to the
