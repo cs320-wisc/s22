@@ -238,7 +238,7 @@ your plot):
 You have to do the remainder of this project on your own.  Do not
 discuss with anybody except 320 staff (mentors, TAs, instructor).
 
-For this part, you'll try to predict population an a **per-census
+For this part, you'll try to predict population on a **per-census
 tract** basis (in contrast to our preceding per-county analysis),
 using features calculated from the land use data.  You have
 flexibility around what features to use and what models to train, but

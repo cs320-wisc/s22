@@ -1,8 +1,13 @@
-# SQL JOIN
+# SQL Database Queries
 
-Let's review SQL, then learn a very important new operator, JOIN.
-First, create a database with information about sales at two grocery
-store locations:
+SQLite databases contain multiple tables.  We can write queries to ask
+questions about the data in these tables.  One way is by putting our
+queries in strings and using `pd.read_sql` to get the results back in
+a DataFrame.
+
+We'll give some examples here that will help you get the data you need
+for P6.  The `INNER JOIN` and `GROUY BY` operations will be especially
+useful.
 
 ```python
 import pandas as pd
