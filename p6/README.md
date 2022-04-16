@@ -28,7 +28,7 @@ help from 320 staff (mentors, TAs, instructor).  You <b>may not</b>
 seek receive help from other 320 students (outside your group) or
 anybody outside the course.
 
-## Model 1: Area to Population
+## Part 1: Predicting Population using Area
 
 ### Q1: How many counties are in Wisconsin?
 
@@ -79,7 +79,7 @@ Answer with a list, in the same order as the names appear in the DataFrame.
 
 Consult the [Census documentation](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_attribute_glossary.html) to learn what units the data is in, and do any conversions necessary to answer the question.  Assume there are exactly 2.59 square kilometers per square mile for the purposes of your calculation.
 
-## Model 2: Housing Units to Population
+## Part 2: Predicting Population using Housing Units
 
 You'll need to wait to do the lab before continuing: https://github.com/cs320-wisc/s22/blob/main/labs/lab13.md
 
@@ -129,7 +129,7 @@ Use a `.text` call to annotate Dane County, and a legend to label the actual and
 
 <img src="q11.png">
 
-## Model 3: Land Use to Population
+## Part 3: Land Use Features
 
 ### Q12: How many numbers in matrix `A` are between 2 and 5 (inclusive)?
 
