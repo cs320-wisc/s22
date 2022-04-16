@@ -264,3 +264,7 @@ https://github.com/cs320-wisc/s22/blob/main/lec/29%20Regression%201/lec1.ipynb
 
 Remember that you need to write a comment that reasonably justifies
 why you're recommending this specific model over the others you tried.
+
+In terms of tester scores, this question is weighted to be worth 4
+regular questions.  Explained variance of 0.35 or higher gets full
+credit (less gets partial credit).
