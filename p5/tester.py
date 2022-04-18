@@ -1,4 +1,5 @@
 import os, sys, json, csv, re, math
+from copy import copy
 import matplotlib.pyplot as plt
 import graphviz
 from collections import namedtuple
@@ -111,6 +112,12 @@ def compare_set(expected, actual, config={}):
         return expected == actual
 
 def compare_dict(expected, actual, config={}):
+    if '-' in expected:
+        new_expected = copy(expected)
+        new_expected.pop('-')
+        if compare_dict(new_expected, actual, config):
+            return True
+
     tolerance = config.get("tolerance", None)
 
     if tolerance:
