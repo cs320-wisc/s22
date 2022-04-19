@@ -111,7 +111,7 @@ Answer with a `dict`.
 
 Answer with the average of 5 scores [produced by `cross_val_score` on the training data](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html).
 
-### Q9: What is the standard deviation of the cross validation scores from Q7?
+### Q9: What is the standard deviation of the cross validation scores from Q8?
 
 ### Q10: What is the formula relating POP100 and HU100?
 
