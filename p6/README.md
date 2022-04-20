@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* None so far!
+* April 20 -  add prompt about how to run tester.py 
 
 ## Overview
 
@@ -19,6 +19,10 @@ construct DataFrames suitable for training during this project:
 
 Do all your work in a single p6.ipynb notebook file, and hand it in
 when you're done.
+
+To run the local tester on your own VM type from the command line
+
+`python3 tester.py p6.ipynb`
 
 # Group Part (75%)
 
