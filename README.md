@@ -11,9 +11,9 @@ Corrections will regularly be added to this repo. Make sure to run `git pull` be
 - [P3](./p3)
 - [P4](./p4)
 - [P5](./p5)
+- [P6](./p6)
 
 <!---
-- [P6](./p6)
 - [P7](./p7)
 --->
 
@@ -29,9 +29,9 @@ Corrections will regularly be added to this repo. Make sure to run `git pull` be
 - [Lab 10](./labs/lab10.md)
 - [Lab 11](./labs/lab11.md)
 - [Lab 12](./labs/lab12.md)
+- [Lab 13](./labs/lab13.md)
 
 <!---
-- [Lab 13](./labs/lab13.md)
 - [Lab 14](./labs/lab14.md)
 - [Lab 15](./labs/lab15.md)
 --->

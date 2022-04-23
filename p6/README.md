@@ -2,7 +2,7 @@
 
 ## Corrections/Clarifications
 
-* None so far!
+* April 20 -  add prompt about how to run tester.py 
 
 ## Overview
 
@@ -19,6 +19,10 @@ construct DataFrames suitable for training during this project:
 
 Do all your work in a single p6.ipynb notebook file, and hand it in
 when you're done.
+
+To run the local tester on your own VM type from the command line
+
+`python3 tester.py p6.ipynb`
 
 # Group Part (75%)
 
@@ -111,7 +115,7 @@ Answer with a `dict`.
 
 Answer with the average of 5 scores [produced by `cross_val_score` on the training data](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html).
 
-### Q9: What is the standard deviation of the cross validation scores from Q7?
+### Q9: What is the standard deviation of the cross validation scores from Q8?
 
 ### Q10: What is the formula relating POP100 and HU100?
 
