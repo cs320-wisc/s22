@@ -30,8 +30,8 @@ Corrections will regularly be added to this repo. Make sure to run `git pull` be
 - [Lab 11](./labs/lab11.md)
 - [Lab 12](./labs/lab12.md)
 - [Lab 13](./labs/lab13.md)
+- [Lab 14](./labs/lab14.md)
 
 <!---
-- [Lab 14](./labs/lab14.md)
 - [Lab 15](./labs/lab15.md)
 --->
