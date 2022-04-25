@@ -12,10 +12,7 @@ Corrections will regularly be added to this repo. Make sure to run `git pull` be
 - [P4](./p4)
 - [P5](./p5)
 - [P6](./p6)
-
-<!---
 - [P7](./p7)
---->
 
 ## Labs
 
