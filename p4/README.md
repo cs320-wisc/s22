@@ -217,7 +217,7 @@ POST the data to the `/email` route in your app, so add that to your
 ```python
 @app.route('/email', methods=["POST"])
 def email():
-    email = str(request.data, "utf-8")
+    email = str(request.get_data(), "utf-8")
     if re.match(r"????", email): # 1
         with open("emails.txt", "a") as f: # open file in append mode
             f.????(email + ????) # 2
